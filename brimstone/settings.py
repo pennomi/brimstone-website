@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'apps.accounts',
     'apps.cards',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [

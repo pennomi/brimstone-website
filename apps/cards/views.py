@@ -4,22 +4,36 @@ from apps.cards import models
 from apps.cards import serializers
 
 
-class CardViewSet(viewsets.ModelViewSet):
-    queryset = models.Card.objects.all()
-    serializer_class = serializers.CardSerializer
-
-
+# TODO: Permissions
 class CardRevisionViewSet(viewsets.ModelViewSet):
     queryset = models.CardRevision.objects.all()
     serializer_class = serializers.CardRevisionSerializer
 
+    def create(self, request, *args, **kwargs):
+        # If no Card is given, this is a new suggestion. Add the Card first.
+        if not request.data.get('card'):
+            print("Making a new card")
+            c = models.Card.objects.create()
+            request.data['card'] = c.id
+        else:
+            print("We cool")
 
+        # Continue as normal
+        return super().create(request, *args, **kwargs)
+
+
+# TODO: Permissions
 class CardCommentViewSet(viewsets.ModelViewSet):
     queryset = models.CardComment.objects.all()
     serializer_class = serializers.CardCommentSerializer
 
 
 # Read-only ViewSets Below here
+class CardViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.Card.objects.all()
+    serializer_class = serializers.CardSerializer
+
+
 class DeckViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Deck.objects.all()
     serializer_class = serializers.DeckSerializer

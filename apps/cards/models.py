@@ -85,8 +85,10 @@ class Card(models.Model):
     deck = models.ManyToManyField(Deck, related_name='cards', blank=True)
 
     def __str__(self):
-        r = self.revisions.latest()
-        return r.name if r else "Unknown"
+        try:
+            return self.revisions.latest().name
+        except CardRevision.DoesNotExist:
+            return "Unknown"
 
 
 def card_image_path(instance, filename):
@@ -112,13 +114,15 @@ class CardRevision(models.Model):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='cards_submitted')
     created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     approver = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='cards_approved')
+        settings.AUTH_USER_MODEL, related_name='cards_approved',
+        blank=True, null=True)
     approved_at = models.DateTimeField(null=True, blank=True)
     rejector = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='cards_rejected')
+        settings.AUTH_USER_MODEL, related_name='cards_rejected',
+        blank=True, null=True)
     rejected_at = models.DateTimeField(null=True, blank=True)
-    modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-approved_at', )

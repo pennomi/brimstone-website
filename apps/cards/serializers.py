@@ -3,6 +3,30 @@ from rest_framework import serializers
 from apps.cards import models
 
 
+class CardRevisionSerializer(serializers.ModelSerializer):
+    creator = serializers.HiddenField(
+        default=serializers.CurrentUserDefault())
+
+    # TODO: `level` validator
+    # TODO: `image` validator
+    # TODO: `stats` validator
+
+    class Meta:
+        model = models.CardRevision
+        read_only_fields = (
+            'approved_at', 'approver', 'rejected_at', 'rejector'
+        )
+
+
+class CardCommentSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = models.CardComment
+
+
+# Below this are all generic serializer implementations
 class DeckSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Deck
@@ -31,16 +55,6 @@ class CardBackgroundSerializer(serializers.ModelSerializer):
 class CardTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CardType
-
-
-class CardRevisionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.CardRevision
-
-
-class CardCommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.CardComment
 
 
 class StatTypeSerializer(serializers.ModelSerializer):

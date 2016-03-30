@@ -8,8 +8,8 @@ class CardRevisionSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault())
 
     # TODO: `level` validator
-    # TODO: `image` validator
     # TODO: `stats` validator
+    # TODO: `art` validator
 
     class Meta:
         model = models.CardRevision
@@ -27,6 +27,11 @@ class CardCommentSerializer(serializers.ModelSerializer):
 
 
 # Below this are all generic serializer implementations
+class CardArtSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CardArt
+
+
 class DeckSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Deck
@@ -43,6 +48,8 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class CardSerializer(serializers.ModelSerializer):
+    latest_revision = CardRevisionSerializer()
+
     class Meta:
         model = models.Card
 

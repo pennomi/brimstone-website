@@ -86,14 +86,31 @@ class Card(models.Model):
 
     def __str__(self):
         try:
-            return self.revisions.latest().name
-        except CardRevision.DoesNotExist:
+            return self.latest_revision.name
+        except AttributeError:  # latest_revision isn't a CardRevision object
             return "Unknown"
+
+    @property
+    def latest_revision(self):
+        try:
+            return self.revisions.latest()
+        except CardRevision.DoesNotExist:
+            return None
 
 
 def card_image_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/cards/images/<id>/<filename>
-    return 'cards/images/{}/{}'.format(instance.id, filename)
+    return 'artists/{}/art/{}'.format(instance.artist.id, filename)
+
+
+class CardArt(models.Model):
+    image = models.ImageField(upload_to=card_image_path, blank=True, null=True)
+    artist = models.ForeignKey(Artist)
+
+    def __str__(self):
+        return "{} {}".format(self.image.url, self.artist.name)
+
+    class Meta:
+        verbose_name_plural = "card art"
 
 
 class CardRevision(models.Model):
@@ -104,10 +121,8 @@ class CardRevision(models.Model):
     type = models.ForeignKey(CardType, on_delete=models.PROTECT)
     level = models.PositiveSmallIntegerField(
         blank=True, null=True, help_text="Only used for creatures (and items?)")
-    image = models.ImageField(upload_to=card_image_path, blank=True, null=True)
-    artist = models.ForeignKey(
-        Artist, null=True, blank=True,
-        help_text="Required if an image is uploaded.")
+    art = models.ForeignKey(
+        CardArt, null=True, blank=True, on_delete=models.PROTECT)
     stats = JSONField(default={})  # TODO: Add validation
 
     # Audit Trail

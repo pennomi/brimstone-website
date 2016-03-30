@@ -22,6 +22,7 @@ from apps.cards import views
 
 router = DefaultRouter()
 router.register('artists', views.ArtistViewSet)
+router.register('card-art', views.CardArtViewSet)
 router.register('card-backgrounds', views.CardBackgroundViewSet)
 router.register('card-comments', views.CardCommentViewSet)
 router.register('card-revisions', views.CardRevisionViewSet)

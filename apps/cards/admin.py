@@ -23,6 +23,11 @@ class CardAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.CardArt)
+class CardArtAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(models.CardBackground)
 class CardBackgroundAdmin(admin.ModelAdmin):
     pass

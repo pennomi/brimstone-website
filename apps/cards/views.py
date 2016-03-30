@@ -12,14 +12,13 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         # If no Card is given, this is a new suggestion. Add the Card first.
         if not request.data.get('card'):
-            print("Making a new card")
             c = models.Card.objects.create()
             request.data['card'] = c.id
-        else:
-            print("We cool")
 
         # Continue as normal
         return super().create(request, *args, **kwargs)
+
+    # TODO: approve/reject detail routes
 
 
 # TODO: Permissions
@@ -57,6 +56,11 @@ class CardBackgroundViewSet(viewsets.ReadOnlyModelViewSet):
 class CardTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.CardType.objects.all()
     serializer_class = serializers.CardTypeSerializer
+
+
+class CardArtViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.CardArt.objects.all()
+    serializer_class = serializers.CardArtSerializer
 
 
 class StatTypeViewSet(viewsets.ReadOnlyModelViewSet):

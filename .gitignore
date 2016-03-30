@@ -1,3 +1,8 @@
+# Angular
+frontend/node_modules/
+frontend/typings/
+frontend/build/
+
 # Django Media
 brimstone/media/
 

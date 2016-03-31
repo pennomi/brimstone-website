@@ -1,8 +1,6 @@
-<home-page></home-page>
 <ul>
     <li *ngFor="#card of cards" (click)="cardSelected(card)">
         <p>{{ card.title }}</p>
-
     </li>
 </ul>
-<card-edit [card]="selectedCard"></card-edit>
+<card-form [card]="selectedCard"></card-form>

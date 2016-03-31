@@ -4,7 +4,7 @@ import {CardEditComponent} from './card-edit.component'
 
 @Component({
     selector: 'app',
-    templateUrl: 'app/app.component.html',
+    templateUrl: 'app/editor/components/app.component.html',
     directives: [HomePageComponent, CardEditComponent]
 })
 export class AppComponent {

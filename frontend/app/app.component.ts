@@ -1,15 +1,17 @@
 import {Component} from 'angular2/core';
+import {HomePageComponent} from './home.page.component'
+import {CardEditComponent} from './card.edit.component'
 
 @Component({
     selector: 'app',
-    templateUrl: 'app/app.component.html'
+    templateUrl: 'app/app.component.html',
+    directives: [HomePageComponent, CardEditComponent]
 })
 export class AppComponent {
     cards = CARDS;
-
-    cardSelected = function (card) {
+    cardSelected: function (card) {
         this.selectedCard = card;
-    }
+    };
 }
 
 var CARDS = [

@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {HomePageComponent} from './home.page.component'
-import {CardEditComponent} from './card.edit.component'
+import {HomePageComponent} from './home-page.component'
+import {CardEditComponent} from './card-edit.component'
 
 @Component({
     selector: 'app',

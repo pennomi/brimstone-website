@@ -1,4 +1,3 @@
-import {bootstrap}    from 'angular2/platform/browser';
-import {SiteRoot} from './site.root';
-
-bootstrap(SiteRoot);
+import {bootstrap} from 'angular2/platform/browser';
+import {AppComponent} from './app.component';
+bootstrap(AppComponent);

@@ -1,0 +1,12 @@
+<h1>Welcome to Brimstone RPG</h1>
+
+<ul>
+    <li *ngFor="#card of cards" (click)="cardSelected(card)">
+        <p>{{ card.title }}</p>
+
+    </li>
+</ul>
+<div *ngIf="selectedCard">
+    <label>Title:</label>
+    <input [(ngModel)]="selectedCard.title" placeholder="Title">
+</div>

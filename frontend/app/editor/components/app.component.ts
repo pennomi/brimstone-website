@@ -1,24 +1,22 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {HomePageComponent} from './home-page.component'
 import {CardEditComponent} from './card-edit.component'
+import {CardService} from '../services/card.service'
 
 @Component({
     selector: 'app',
     templateUrl: 'app/editor/components/app.component.html',
-    directives: [HomePageComponent, CardEditComponent]
+    directives: [HomePageComponent, CardEditComponent],
+    providers: [CardService]
 })
 export class AppComponent {
-    cards = CARDS;
-    cardSelected: function (card) {
-        this.selectedCard = card;
-    };
-}
+    constructor(private _cardService: CardService) { }
 
-var CARDS = [
-    {id:1, title: "A"},
-    {id:2, title: "B"},
-    {id:3, title: "C"},
-    {id:4, title: "D"},
-    {id:5, title: "E"},
-    {id:6, title: "F"}
-];
+    ngOnInit() {
+        this._cardService.getCardList().then(cards => this.cards = cards);
+    }
+
+    cardSelected(card) {
+        this.selectedCard = card;
+    }
+}

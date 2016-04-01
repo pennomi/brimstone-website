@@ -1,6 +1,12 @@
-<div *ngIf="card">
+<div *ngIf="!error">
     <p>Detailed Card Stuff</p>
     <p>{{ card.id }}</p>
     <p>{{ card.latest_revision.name }}</p>
+    <p>TODO: Image {{ card.latest_revision.image }}</p>
     <revision-form [revision]="card.latest_revision"></revision-form>
+
+    <p>TODO: Event list goes here</p>
+</div>
+<div *ngIf="error">
+    <p>{{ error }}</p>
 </div>

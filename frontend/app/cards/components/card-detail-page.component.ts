@@ -12,10 +12,11 @@ export class CardDetailPageComponent {
     constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
 
     ngOnInit() {
+        this.card = {latest_revision: {}};
         let id = +this._routeParams.get('id');
         this._cardService.getCard(id).subscribe(
             data => this.card = data,
-            err => console.error(err)
+            err => this.error = "Not Found"
         );
     }
 }

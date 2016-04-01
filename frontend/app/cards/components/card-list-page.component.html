@@ -1,6 +1,5 @@
 <ul>
-    <li *ngFor="#card of cards" (click)="cardSelected(card)">
-        <p>{{ card.title }}</p>
+    <li *ngFor="#card of cards">
+        <p><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.title }}</a></p>
     </li>
 </ul>
-<card-form [card]="selectedCard"></card-form>

@@ -1,4 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
+import {RouteParams} from 'angular2/router';
 import {CardFormComponent} from './card-form.component'
 import {CardService} from '../../foundation/services/card.service'
 
@@ -8,13 +9,10 @@ import {CardService} from '../../foundation/services/card.service'
     directives: [CardFormComponent]
 })
 export class CardDetailPageComponent {
-    constructor(private _cardService: CardService) { }
+    constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
 
     ngOnInit() {
-        this._cardService.getCardList().then(cards => this.cards = cards);
-    }
-
-    cardSelected(card) {
-        this.selectedCard = card;
+        let id = +this._routeParams.get('id');
+        this._cardService.getCard(id).then(card => this.card = card);
     }
 }

@@ -14,4 +14,9 @@ export class CardService {
     getCardList() {
         return Promise.resolve(this.CARDS);
     }
+
+    getCard(id: number) {
+        return this.getCardList().then(
+            cards => cards.filter(card => card.id === id)[0]);
+    }
 }

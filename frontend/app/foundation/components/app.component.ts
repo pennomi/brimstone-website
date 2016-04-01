@@ -1,9 +1,9 @@
 import {Component, OnInit} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
-import {HomePageComponent} from '../../home/components/home-page.component'
-import {CardListPageComponent} from '../../cards/components/card-list-page.component'
-import {CardDetailPageComponent} from '../../cards/components/card-detail-page.component'
-import {CardService} from '../services/card.service'
+import {HomePageComponent} from '../../home/components/home-page.component';
+import {CardListPageComponent} from '../../cards/components/card-list-page.component';
+import {CardDetailPageComponent} from '../../cards/components/card-detail-page.component';
+import {CardService} from '../services/card.service';
 
 @Component({
     selector: 'app',

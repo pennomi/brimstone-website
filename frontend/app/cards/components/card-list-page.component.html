@@ -1,5 +1,5 @@
 <ul>
     <li *ngFor="#card of cards">
-        <p><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.title }}</a></p>
+        <p><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.latest_revision.name }}</a></p>
     </li>
 </ul>

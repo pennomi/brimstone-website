@@ -12,6 +12,10 @@ export class CardListPageComponent {
     constructor(private _cardService: CardService) { }
 
     ngOnInit() {
-        this._cardService.getCardList().then(cards => this.cards = cards);
+        this._cardService.getCardList().subscribe(
+            data => this.cards = data,
+            err => console.error(err),
+            () => console.log('Got the cards')
+        );
     }
 }

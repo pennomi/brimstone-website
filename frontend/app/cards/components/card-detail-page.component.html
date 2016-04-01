@@ -1,6 +1,6 @@
 <div *ngIf="card">
     <p>Detailed Card Stuff</p>
     <p>{{ card.id }}</p>
-    <p>{{ card.title }}</p>
-    <card-form [card]="card"></card-form>
+    <p>{{ card.latest_revision.name }}</p>
+    <revision-form [revision]="card.latest_revision"></revision-form>
 </div>

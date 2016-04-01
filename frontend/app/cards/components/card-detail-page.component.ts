@@ -15,8 +15,7 @@ export class CardDetailPageComponent {
         let id = +this._routeParams.get('id');
         this._cardService.getCard(id).subscribe(
             data => this.card = data,
-            err => console.error(err),
-            () => console.log('Got the cards')
+            err => console.error(err)
         );
     }
 }

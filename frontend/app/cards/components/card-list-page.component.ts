@@ -14,8 +14,7 @@ export class CardListPageComponent {
     ngOnInit() {
         this._cardService.getCardList().subscribe(
             data => this.cards = data,
-            err => console.error(err),
-            () => console.log('Got the cards')
+            err => console.error(err)
         );
     }
 }

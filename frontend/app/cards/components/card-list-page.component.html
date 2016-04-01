@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="#card of cards" (click)="cardSelected(card)">
+        <p>{{ card.title }}</p>
+    </li>
+</ul>
+<card-form [card]="selectedCard"></card-form>

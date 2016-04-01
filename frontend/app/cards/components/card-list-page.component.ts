@@ -1,15 +1,14 @@
 import {Component, OnInit} from 'angular2/core';
 import {CardFormComponent} from './card-form.component'
-import {CardService} from '../services/card.service'
+import {CardService} from '../../foundation/services/card.service'
 
 @Component({
-    selector: 'card-editor',
-    templateUrl: 'app/card-editor/components/card-editor.component.html',
-    styleUrl: 'app/navigation/components/app.component.css',
+    selector: 'card-list-page',
+    templateUrl: 'app/cards/components/card-list-page.component.html',
     directives: [CardFormComponent],
-    providers: [CardService]
+    providers: []
 })
-export class CardEditorComponent {
+export class CardListPageComponent {
     constructor(private _cardService: CardService) { }
 
     ngOnInit() {

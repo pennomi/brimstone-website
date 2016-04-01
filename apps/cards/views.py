@@ -1,13 +1,17 @@
+from django.utils import timezone
 from rest_framework import viewsets
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 
 from apps.cards import models
 from apps.cards import serializers
+from apps.cards import permissions
 
 
-# TODO: Permissions
 class CardRevisionViewSet(viewsets.ModelViewSet):
     queryset = models.CardRevision.objects.all()
     serializer_class = serializers.CardRevisionSerializer
+    permission_classes = [permissions.CardRevisionPermission]
 
     def create(self, request, *args, **kwargs):
         # If no Card is given, this is a new suggestion. Add the Card first.
@@ -18,7 +22,25 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
         # Continue as normal
         return super().create(request, *args, **kwargs)
 
-    # TODO: approve/reject detail routes
+    @detail_route(
+        methods=['POST'],
+        permission_classes=[permissions.CardRevisionApprovalPermission])
+    def approve(self, request, pk=None):
+        revision = self.get_object()
+        revision.approver = request.user
+        revision.approved_at = timezone.now()
+        revision.save()
+        return Response(status=200)
+
+    @detail_route(
+        methods=['POST'],
+        permission_classes=[permissions.CardRevisionApprovalPermission])
+    def reject(self, request, pk=None):
+        revision = self.get_object()
+        revision.rejector = request.user
+        revision.rejected_at = timezone.now()
+        revision.save()
+        return Response(status=200)
 
 
 # TODO: Permissions

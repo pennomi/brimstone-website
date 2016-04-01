@@ -1,11 +1,12 @@
 from rest_framework import serializers
+from rest_framework.fields import CurrentUserDefault
 
 from apps.cards import models
 
 
 class CardRevisionSerializer(serializers.ModelSerializer):
-    creator = serializers.HiddenField(
-        default=serializers.CurrentUserDefault())
+    creator = serializers.PrimaryKeyRelatedField(
+        read_only=True, default=CurrentUserDefault())
 
     # TODO: `level` validator
     # TODO: `stats` validator

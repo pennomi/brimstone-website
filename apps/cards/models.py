@@ -123,7 +123,7 @@ class CardRevision(models.Model):
         blank=True, null=True, help_text="Only used for creatures (and items?)")
     art = models.ForeignKey(
         CardArt, null=True, blank=True, on_delete=models.PROTECT)
-    stats = JSONField(default={})  # TODO: Add validation
+    stats = JSONField(default={}, blank=True)  # TODO: Add validation
 
     # Audit Trail
     creator = models.ForeignKey(

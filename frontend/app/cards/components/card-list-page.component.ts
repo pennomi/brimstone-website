@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {CardService} from '../../foundation/services/card.service';
 import {RevisionFormComponent} from './revision-form.component'
 

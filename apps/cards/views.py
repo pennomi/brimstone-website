@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
@@ -14,13 +15,14 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.CardRevisionPermission]
 
     def create(self, request, *args, **kwargs):
-        # If no Card is given, this is a new suggestion. Add the Card first.
-        if not request.data.get('card'):
-            c = models.Card.objects.create()
-            request.data['card'] = c.id
+        with transaction.atomic():
+            # If no Card is given, this is a new suggestion. Add the Card first.
+            if not request.data.get('card'):
+                c = models.Card.objects.create()
+                request.data['card'] = c.id
 
-        # Continue as normal
-        return super().create(request, *args, **kwargs)
+            # Continue as normal
+            return super().create(request, *args, **kwargs)
 
     @detail_route(
         methods=['POST'],

@@ -6,6 +6,8 @@ We use Angular 2 and TypeScript for our frontend. Before you get started, make s
 
 ```bash
 npm install
+npm install typings --global
+typings install lodash
 ```
 
 ### Run the development server:

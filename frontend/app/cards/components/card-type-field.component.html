@@ -1,0 +1,3 @@
+<select [(ngModel)]="revision.type" (ngModelChange)="typeChanged($event)">
+    <option *ngFor="#t of typeList" value="{{t.id}}">{{t.name}}</option>
+</select>

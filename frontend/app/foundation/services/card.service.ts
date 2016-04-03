@@ -11,8 +11,8 @@ export class CardService {
     _api(method, url, body=undefined) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        if (this._authenticationService.storedCredentials) {
-            headers.append('Authorization', 'Basic ' + this._authenticationService.storedCredentials);
+        if (this._authenticationService.getAuthToken()) {
+            headers.append('Authorization', 'Basic ' + this._authenticationService.getAuthToken());
         }
         return this.http[method](
             `http://localhost:8000/api/${url}`, JSON.stringify(body), {headers: headers}
@@ -25,6 +25,11 @@ export class CardService {
 
     getCard(id: number) {
         return this._api('get', `cards/${id}/`);
+    }
+
+    getTypeList() {
+        // TODO: Cache since this should almost never change
+        return this._api('get', 'card-types/');
     }
 
     saveRevision(revision) {

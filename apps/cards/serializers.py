@@ -49,7 +49,16 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class CardSerializer(serializers.ModelSerializer):
+    # TODO: Audit this for performance
     latest_revision = CardRevisionSerializer()
+    pending_revisions = serializers.SerializerMethodField()
+    approved_revisions = serializers.SerializerMethodField()
+
+    def get_pending_revisions(self, card):
+        return card.revisions.filter(approved_at=None, rejected_at=None).count()
+
+    def get_approved_revisions(self, card):
+        return card.revisions.exclude(approved_at=None).count()
 
     class Meta:
         model = models.Card

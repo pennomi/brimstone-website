@@ -1,4 +1,40 @@
 /* Global Styles */
+body {
+    margin: 0;
+}
 * {
   font-family: DroidSerif;
+}
+
+/* Header */
+.header {
+    background-color: #5D4037;
+    color: white;
+    padding: 1em;
+}
+
+/* Card List */
+.cardList {
+    margin: 1em;
+    border-collapse: collapse;
+}
+.cardList thead {
+    background-color: #5D4037;
+    color: white;
+}
+.cardList__row:nth-child(odd) {
+    background-color: #EFEBE9;
+}
+.cardList__row:nth-child(even) {
+    background-color: #D7CCC8;
+}
+.cardList th {
+    border: 1px black solid;
+    margin: 0;
+    padding: .5em;
+}
+.cardList td {
+    border: 1px black solid;
+    margin: 0;
+    padding: .5em;
 }

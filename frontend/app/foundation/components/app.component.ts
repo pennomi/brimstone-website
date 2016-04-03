@@ -14,7 +14,6 @@ import {AuthenticationService} from '../services/authentication.service';
 @Component({
     selector: 'app',
     templateUrl: 'app/foundation/components/app.component.html',
-    styleUrls: ['app/foundation/components/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, CardService, AuthenticationService]
 })

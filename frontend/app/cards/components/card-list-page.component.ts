@@ -13,9 +13,20 @@ export class CardListPageComponent {
     constructor(private _cardService: CardService) { }
 
     ngOnInit() {
+        // Fetch Cards
         this._cardService.getCardList().subscribe(
             data => this.cards = data,
             err => console.error(err)
         );
+
+        // Fetch Card Types
+        this._cardService.getTypeList().subscribe(
+            data => this.cardTypes = data,
+            err => console.error(err)
+        );
+    }
+
+    getTypeName(card) {
+        return _.find(this.cardTypes, ['id', card.latest_revision.type]).name;
     }
 }

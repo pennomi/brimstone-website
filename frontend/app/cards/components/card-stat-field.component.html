@@ -1,0 +1,9 @@
+<p>Stats and crap</p>
+<div *ngFor="#line of stats">
+    <select [(ngModel)]="line.id">
+        <option *ngFor="#s of statList" value="{{s.id}}">{{s.name}}</option>
+    </select>
+    <input [(ngModel)]="line.value">
+    <button (click)="removeStatClicked(line)">x</button>
+</div>
+<button (click)="addStatClicked()">+</button>

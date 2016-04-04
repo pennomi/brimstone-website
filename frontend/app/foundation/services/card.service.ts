@@ -36,6 +36,11 @@ export class CardService {
         return this._api('get', 'card-types/');
     }
 
+    // Stat Types
+    getStatList() {
+        // TODO: Cache since this should almost never change
+        return this._api('get', 'stat-types/');
+    }
 
     // Revisions
     getRevisionsForCard(cardId) {

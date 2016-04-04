@@ -15,7 +15,7 @@ class Rulebook(models.Model):
 
 class Deck(models.Model):
     name = models.CharField(max_length=64)
-    icon = models.ImageField(upload_to='decks/icons/')
+    icon = models.FileField(upload_to='decks/icons/')
 
     def __str__(self):
         return self.name
@@ -55,7 +55,7 @@ class Artist(models.Model):
 class CardBackground(models.Model):
     """Each unique card background is uploaded here."""
     name = models.CharField(max_length=16)
-    image = models.ImageField(upload_to='cards/backgrounds/')
+    image = models.FileField(upload_to='cards/backgrounds/')
     has_art = models.BooleanField(default=False)
 
     def __str__(self):
@@ -74,7 +74,7 @@ class CardType(models.Model):
 class StatType(models.Model):
     """A name and icon for each of the unique stat block types on the card."""
     name = models.CharField(max_length=32)
-    image = models.ImageField(upload_to='cards/stats/icons/')
+    image = models.FileField(upload_to='cards/stats/icons/')
 
     def __str__(self):
         return self.name
@@ -123,7 +123,8 @@ class CardRevision(models.Model):
         blank=True, null=True, help_text="Only used for creatures (and items?)")
     art = models.ForeignKey(
         CardArt, null=True, blank=True, on_delete=models.PROTECT)
-    stats = JSONField(default={}, blank=True)  # TODO: Add validation
+    stats = JSONField(default=[], blank=True)  # TODO: Add validation
+    description = models.TextField(blank=True)
 
     # Audit Trail
     creator = models.ForeignKey(

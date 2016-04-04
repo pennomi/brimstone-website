@@ -55,8 +55,9 @@ class CairoRenderer:
         """Initialize a text-enabled cairo surface we can draw on."""
         print("INIT", PC)
         self.surface = PC.cairo_image_surface_create(
-            CAIRO_FORMAT_ARGB32, width, height)
+            CAIRO_FORMAT_ARGB32, int(width), int(height))
         print("SURF", self.surface)
+
         self.context = PC.cairo_create(self.surface)
         print("CONTEXT")
         self.layout = PC.pango_cairo_create_layout(self.context)
@@ -186,6 +187,7 @@ class CairoRenderer:
         """Render this surface to PNG format."""
         print("SAVING")
         PC.cairo_surface_write_to_png(self.surface, c_char_p(filename.encode()))
+        print("DONE")
 
     def __del__(self):
         """Destroy all the objects we've created."""

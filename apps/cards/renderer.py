@@ -1,12 +1,11 @@
 """
 Render a card using the "mudblood" framework.
 """
-import json
 import os
+import tempfile
 
 from django.conf import settings
 from jinja2 import Template
-from mudblood.mudblood import render_string
 
 
 def _replace_markup(card, key):
@@ -34,6 +33,8 @@ def generate_image(revision):
         image=revision.art.image.path if revision.art else "",
         artist="{}" + revision.art.artist.name if revision.art else "",
         stats=revision.stats,
+        title=revision.name,
+        subtitle=revision.type.name,
         description=revision.description.replace('\n', '\\n'),
         deck="{}",
         table_data="",  # TODO: json.dumps(revision.table_data)
@@ -52,11 +53,19 @@ def generate_image(revision):
     with open(template_file, 'r') as infile:
         template = Template(infile.read())
 
-    # Iterate over each card and render it
-    # Render the template using jinja
-    layout = template.render(card=card)
-
     # Render the image using squib
     filename = os.path.join(
         settings.MEDIA_ROOT, 'cards', 'renders', "{}.png".format(card['id']))
-    render_string(layout, 825, 1125, filename)
+
+    with tempfile.TemporaryDirectory() as dir:
+        dir = '/tmp'
+        outfilepath = os.path.join(dir, 'template.tml')
+        with open(outfilepath, 'w') as outfile:
+            # Render the template using jinja
+            outfile.write(template.render(card=card))
+
+        # Execute the renderer
+        cmd = 'python generate_image.py {} {} {} {}'.format(
+            outfilepath, 825, 1125, filename)
+        print(cmd)
+        os.system(cmd)

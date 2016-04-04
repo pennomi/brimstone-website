@@ -93,9 +93,9 @@ class Card(models.Model):
     @property
     def latest_revision(self):
         try:
-            return self.revisions.latest()
+            return self.revisions.exclude(approved_at=None).latest()
         except CardRevision.DoesNotExist:
-            return None
+            return self.revisions.first()
 
 
 def card_image_path(instance, filename):

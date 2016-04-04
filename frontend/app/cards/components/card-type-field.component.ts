@@ -18,7 +18,6 @@ export class CardTypeFieldComponent {
                 this.typeList = data;
                 this.type = _.find(this.typeList, ['id', this.revision.type]);
                 if (!this.type) {
-                    console.log("Fallback to the first")
                     this.type = this.typeList[0];
                     this.revision.type = this.type.id;
                 }

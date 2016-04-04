@@ -10,9 +10,21 @@ from apps.cards import permissions
 
 
 class CardRevisionViewSet(viewsets.ModelViewSet):
+    """##Filters:
+     - `?card=<id>` Filter by card id
+    """
     queryset = models.CardRevision.objects.all()
     serializer_class = serializers.CardRevisionSerializer
     permission_classes = [permissions.CardRevisionPermission]
+
+    def get_queryset(self):
+        q = super().get_queryset()
+
+        # Apply filters
+        params = self.request.query_params
+        if params.get('card'):
+            q = q.filter(card_id=params.get('card'))
+        return q
 
     def create(self, request, *args, **kwargs):
         with transaction.atomic():
@@ -32,7 +44,7 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
         revision.approver = request.user
         revision.approved_at = timezone.now()
         revision.save()
-        return Response(status=200)
+        return Response({}, status=200)
 
     @detail_route(
         methods=['POST'],
@@ -42,7 +54,7 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
         revision.rejector = request.user
         revision.rejected_at = timezone.now()
         revision.save()
-        return Response(status=200)
+        return Response({}, status=200)
 
 
 # TODO: Permissions

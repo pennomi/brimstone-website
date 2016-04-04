@@ -19,6 +19,8 @@ export class CardService {
         ).map((res:Response) => res.json());
     }
 
+
+    // Cards
     getCardList() {
         return this._api('get', 'cards/');
     }
@@ -27,9 +29,17 @@ export class CardService {
         return this._api('get', `cards/${id}/`);
     }
 
+
+    // Card Types
     getTypeList() {
         // TODO: Cache since this should almost never change
         return this._api('get', 'card-types/');
+    }
+
+
+    // Revisions
+    getRevisionsForCard(cardId) {
+        return this._api('get', `card-revisions/?card=${cardId}`);
     }
 
     saveRevision(revision) {
@@ -39,5 +49,13 @@ export class CardService {
         } else {
             return this._api('post', 'card-revisions/', revision);
         }
+    }
+
+    approveRevision(revisionId) {
+        return this._api('post', `card-revisions/${revisionId}/approve/`);
+    }
+
+    rejectRevision(revisionId) {
+        return this._api('post', `card-revisions/${revisionId}/reject/`);
     }
 }

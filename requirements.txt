@@ -4,3 +4,7 @@ django-cors-headers
 markdown
 pillow
 psycopg2
+
+# Renderer
+jinja2
+pyparsing

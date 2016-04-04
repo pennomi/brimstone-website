@@ -1,0 +1,209 @@
+# Card art
+{% if card.image %}
+    Image {
+        id: art
+        file: {{ card.image }}
+        x: 72
+        y: 149
+        w: 753
+        h: 412
+    }
+    Text {
+        id: artist_shadow
+        text: {{ card.artist }}
+        x: 247
+        y: 535
+        w: 500
+        h: 26
+        align: right
+        color: 0.0, 0.0, 0.0, 1
+        font_name: DroidSerif weight=900 Italic
+        font_size: 14
+    }
+    Text {
+        id: artist
+        text: {{ card.artist }}
+        x: 246
+        y: 534
+        w: 500
+        h: 26
+        align: right
+        color: 1.0, 1.0, 1.0, 1
+        font_name: DroidSerif weight=900 Italic
+        font_size: 14
+    }
+{% endif %}
+
+# Set up the background and icon
+Image {
+    id: background
+    file: {{ card.background }}
+    x: 0
+    y: 0
+    w: 825
+    h: 1125
+}
+
+{% for stat in card.stats %}
+    {% set stat_top = 207 %}
+    {% set stat_spacing = 30 %}
+    {% set stat_height = 68 %}
+
+    {% set stat_icon_size = 37 %}
+    {% set stat_icon_padding = 4 %}
+
+    {% set stat_font_offset = 30 %}
+
+    Rect {
+        color: .13, .13, .13, 1
+        x: 0
+        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) }}
+        w: 150
+        h: {{ stat_height }}
+    }
+
+    Text {
+        text: {{ stat.text }}
+        x: 75
+        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_font_offset}}
+        w: 263
+        h: {{ stat_height }}
+        color: 1.0, 1.0, 1.0, 1
+        font_name: DroidSans Bold
+        font_size: 22
+    }
+
+    Rect {
+        color: .13, .13, .13, 1
+        x: 75
+        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) - stat_icon_size / 2}}
+        w: {{ stat_icon_size }}
+        h: {{ stat_icon_size }}
+        radius: {{ stat_icon_size / 2 }}
+    }
+
+    Image {
+        file: {{ stat.icon }}
+        x: {{ 75 + stat_icon_padding }}
+        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_padding - stat_icon_size / 2 }}
+        w: {{ stat_icon_size - stat_icon_padding * 2 }}
+        h: {{ stat_icon_size - stat_icon_padding * 2 }}
+    }
+
+    Text {
+        text: {{ stat.name }}
+        x: 75
+        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_size / 2 - stat_icon_padding}}
+        w: 263
+        h: {{ stat_height }}
+        color: 1.0, 1.0, 1.0, 1
+        font_name: DroidSans
+        font_size: 10
+    }
+{% endfor %}
+
+# Render fancy text
+Text {
+    id: title
+    text: {{ card.title }}
+    x: 0
+    y: 68
+    w: 825
+    h: 50
+    align: center
+    font_name: DroidSerif Bold
+    font_size: 36
+    color: 1.0, 1.0, 1.0, 1
+}
+
+Text {
+    id: subtitle
+    text: {{ card.subtitle }}
+    x: 0
+    y: 134
+    w: 825
+    h: 30
+    align: center
+    font_name: DroidSerif weight=900 Italic
+    font_size: 22
+    color: 1.0, 1.0, 1.0, 1
+}
+
+Text {
+    text: {{ card.description }}
+    x: 169
+    y: {% if card.image %}579{% else %}207{% endif %}
+    w: 581
+    h: 750
+    line_spacing: 2
+    font_name: DroidSerif
+    font_size: 22
+}
+
+# Show a table if needed TODO: anchor to description bottom automatically
+{% if card.table_data %}
+    Table {
+        id: table
+        data: {{ card.table_data }}
+        x: 169
+        y: {{ card.table_y + 207 }}
+        w: 581
+        padding_x: 7
+        padding_y: 3
+        font_name: DroidSerif
+        font_size: 22
+    }
+{% endif %}
+
+
+# Copyright text
+Text {
+    text: © {{ card.creation_year }}–2016, Brimstone RPG Project
+    x: 341
+    y: 1047
+    w: 800
+    h: 52
+    font_name: DroidSerif Italic
+    font_size: 13
+    color: 1, 1, 1, .25
+}
+
+# Version Number
+Text {
+    text: {{ card.set }} {{ card.id }} : {{ card.version }}
+    x: 370
+    y: 1012
+    w: 263
+    h: 32
+    align: right
+    font_name: DroidSerif weight=900 Italic
+    font_size: 18
+    color: 1, 1, 1, .25
+}
+
+# Debug Drawing
+
+# The "cut line"
+#Rect {
+#    id: cut
+#    x: 37.5
+#    y: 37.5
+#    w: 750
+#    h: 1050
+#    radius: 16
+#    color: 1, 0, 0, 1
+#    stroke: true
+#    fill: false
+#}
+
+# The "safe zone" as defined by TheGameCrafter poker cards
+#Rect {
+#    id: safe
+#    x: 75
+#    y: 75
+#    w: 675
+#    h: 975
+#    color: 1, 1, 0, 1
+#    stroke: true
+#    fill: false
+#}

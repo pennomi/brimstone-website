@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
+from apps.cards.renderer import generate_image
+
 
 class Rulebook(models.Model):
     version = models.IntegerField()
@@ -143,6 +145,11 @@ class CardRevision(models.Model):
     class Meta:
         ordering = ('-approved_at', )
         get_latest_by = "approved_at"
+
+    def save(self, **kwargs):
+        # FIXME: This will crash
+        generate_image(self)
+        super().save(**kwargs)
 
     def __str__(self):
         return self.name

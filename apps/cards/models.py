@@ -147,7 +147,6 @@ class CardRevision(models.Model):
         get_latest_by = "approved_at"
 
     def save(self, **kwargs):
-        # FIXME: This will crash
         generate_image(self)
         super().save(**kwargs)
 

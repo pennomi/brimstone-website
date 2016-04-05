@@ -1,6 +1,6 @@
 <div *ngIf="!error">
     <h2>{{ card.latest_revision.name }}</h2>
-    <p>TODO: Image {{ card.latest_revision.image }}</p>
+    <img src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
     <hr/>
     <h3>Suggest an edit:</h3>
     <revision-form [revision]="blankRevision"></revision-form>

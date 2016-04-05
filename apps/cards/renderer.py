@@ -54,18 +54,18 @@ def generate_image(revision):
         template = Template(infile.read())
 
     # Render the image using squib
+    # TODO: Can we do this without subprocess?
     filename = os.path.join(
-        settings.MEDIA_ROOT, 'cards', 'renders', "{}.png".format(card['id']))
+        settings.MEDIA_ROOT, 'cards', 'renders', "{}.png".format(revision.id))
 
-    with tempfile.TemporaryDirectory() as dir:
-        dir = '/tmp'
-        outfilepath = os.path.join(dir, 'template.tml')
-        with open(outfilepath, 'w') as outfile:
+    with tempfile.TemporaryDirectory() as tmpdir:
+        out_filepath = os.path.join(tmpdir, 'template.tml')
+        with open(out_filepath, 'w') as outfile:
             # Render the template using jinja
             outfile.write(template.render(card=card))
 
         # Execute the renderer
         cmd = 'python generate_image.py {} {} {} {}'.format(
-            outfilepath, 825, 1125, filename)
+            out_filepath, 825, 1125, filename)
         print(cmd)
         os.system(cmd)

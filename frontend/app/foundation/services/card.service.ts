@@ -1,5 +1,5 @@
 import {Injectable, Inject} from 'angular2/core';
-import {Http, Headers, Response} from 'angular2/http';
+import {Http, Headers, Response, RequestOptions} from 'angular2/http';
 import {AuthenticationService} from './authentication.service';
 
 
@@ -9,13 +9,17 @@ export class CardService {
 
     // A basic request method that standardizes authentication
     _api(method, url, body=undefined) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        // TODO: This is failing on Firefox for some stupid reason.
+        var headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        });
         if (this._authenticationService.getAuthToken()) {
             headers.append('Authorization', 'Basic ' + this._authenticationService.getAuthToken());
         }
+        let options = new RequestOptions({ headers: headers });
         return this.http[method](
-            `http://localhost:8000/api/${url}`, JSON.stringify(body), {headers: headers}
+            `http://localhost:8000/api/${url}`, JSON.stringify(body), options
         ).map((res:Response) => res.json());
     }
 

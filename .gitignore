@@ -5,6 +5,7 @@ frontend/build/
 
 # Django Media
 brimstone/media/
+brimstone/static/
 
 # Editor
 .idea/

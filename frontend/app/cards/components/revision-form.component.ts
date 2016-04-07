@@ -25,6 +25,7 @@ export class RevisionFormComponent {
     submitClicked() {
         this._cardService.saveRevision(this.revision).subscribe(
             // TODO: Show these to the user.
+            // TODO: Emit a signal that passes the new revision to the parent
             data => console.log("Saved"),
             err => console.error(err)
         );

@@ -143,7 +143,7 @@ class CardRevision(models.Model):
     rejected_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        ordering = ('-approved_at', )
+        ordering = ('-created_at', )
         get_latest_by = "approved_at"
 
     def save(self, **kwargs):

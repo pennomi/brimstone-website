@@ -4,16 +4,21 @@
             <img src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
         </div>
         <div class="cardDetail__containerInfo">
-            <h2>{{ card.latest_revision.name }}</h2>
+            <div *ngIf="!editMode">
+                <h2>{{ card.latest_revision.name }}</h2>
+                <p>{{ card.latest_revision.description }}</p>
+            </div>
+            <revision-form *ngIf="editMode" [revision]="blankRevision"></revision-form>
+            <button (click)="editMode = !editMode">{{ editMode ? "Cancel Editing" : "Suggest an Edit" }}</button>
         </div>
     </div>
-    <hr/>
-    <h3>Suggest an edit:</h3>
-    <revision-form [revision]="blankRevision"></revision-form>
     <hr/>
     <h3>Card History</h3>
     <div *ngFor="#r of revisions">
         <h4>Revision by {{ r.creator }} (TODO: username)</h4>
+        <p *ngIf="r.created_at">Created: {{ r.created_at_date | date }} @ {{ r.created_at_date | date: 'shortTime' }}</p>
+        <p *ngIf="r.approved_at">Approved: {{ r.approved_at_date | date }} @ {{ r.approved_at_date | date: 'shortTime' }}</p>
+        <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at_date | date }} @ {{ r.rejected_at_date | date: 'shortTime' }}</p>
         <p>{{ r.name }}</p>
         <button *ngIf="!r.approved_at && !r.rejected_at" (click)="approveClicked(r)">Approve</button>
         <button *ngIf="!r.approved_at && !r.rejected_at" (click)="rejectClicked(r)">Reject</button>

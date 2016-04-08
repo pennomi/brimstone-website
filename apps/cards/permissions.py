@@ -58,3 +58,34 @@ class CardRevisionApprovalPermission(CardRevisionPermission):
         if not authed or not request.user.role == Role.Master:
             return False
         return super().has_object_permission(request, view, obj)
+
+
+class CardCommentPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Nobody can DELETE data
+        if request.method == "DELETE":
+            return False
+        # Anyone can READ the data
+        if request.method in SAFE_METHODS:
+            return True
+        # Authenticated users can CREATE and UPDATE
+        if request.user.is_authenticated():
+            return True
+        # Default to no access
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        # Anyone can READ the data
+        if request.method in SAFE_METHODS:
+            return True
+        # But that's all unauthed users can do
+        if not request.user.is_authenticated():
+            return False
+        # A user can always UPDATE their own comments
+        if obj.user == request.user:
+            return True
+        # A Master-level user can UPDATE anyone's comment
+        if request.user.role >= Role.Master:
+            return True
+        # Default to no access
+        return False

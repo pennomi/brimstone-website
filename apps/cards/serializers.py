@@ -20,8 +20,8 @@ class CardRevisionSerializer(serializers.ModelSerializer):
 
 
 class CardCommentSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault())
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True, default=CurrentUserDefault())
 
     class Meta:
         model = models.CardComment

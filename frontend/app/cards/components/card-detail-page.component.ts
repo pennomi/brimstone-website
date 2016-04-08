@@ -1,6 +1,8 @@
 import {Component, OnInit} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {RevisionFormComponent} from './revision-form.component'
+import {CommentComponent} from './comment.component'
+import {CommentFormComponent} from './comment-form.component'
 import {CardService} from '../../foundation/services/card.service'
 
 
@@ -15,7 +17,7 @@ let processRevision = (r) => {
 @Component({
     selector: 'card-detail-page',
     templateUrl: 'app/cards/components/card-detail-page.component.html',
-    directives: [RevisionFormComponent]
+    directives: [RevisionFormComponent, CommentFormComponent, CommentComponent]
 })
 export class CardDetailPageComponent {
     constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
@@ -48,6 +50,13 @@ export class CardDetailPageComponent {
                     processRevision(r);
                 }
             },
+            err => this.error = "Could not retrieve card revisions."
+        );
+
+        // Fetch all comments of this card
+        this.comments = [];
+        this._cardService.getCommentsForCard(id).subscribe(
+            data => this.comments = data,
             err => this.error = "Could not retrieve card revisions."
         );
     }

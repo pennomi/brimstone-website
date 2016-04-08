@@ -1,7 +1,7 @@
 <div *ngIf="!error">
     <div class="cardDetail__container">
         <div class="cardDetail__containerImage">
-            <img src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
+            <img *ngIf="card.latest_revision.id" src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
         </div>
         <div class="cardDetail__containerInfo">
             <div *ngIf="!editMode">
@@ -14,6 +14,13 @@
     </div>
     <hr/>
     <h3>Card History</h3>
+    <div *ngFor="#c of comments">
+        <comment [comment]="c"></comment>
+    </div>
+    <div>
+        <p>Make a Comment:</p>
+        <comment-form [card]="card"></comment-form>
+    </div>
     <div *ngFor="#r of revisions">
         <h4>Revision by {{ r.creator }} (TODO: username)</h4>
         <p *ngIf="r.created_at">Created: {{ r.created_at_date | date }} @ {{ r.created_at_date | date: 'shortTime' }}</p>

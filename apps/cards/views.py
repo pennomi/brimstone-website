@@ -57,10 +57,19 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
         return Response({}, status=200)
 
 
-# TODO: Permissions
 class CardCommentViewSet(viewsets.ModelViewSet):
     queryset = models.CardComment.objects.all()
     serializer_class = serializers.CardCommentSerializer
+    permission_classes = [permissions.CardCommentPermission]
+
+    def get_queryset(self):
+        q = super().get_queryset()
+
+        # Apply filters
+        params = self.request.query_params
+        if params.get('card'):
+            q = q.filter(card_id=params.get('card'))
+        return q
 
 
 # Read-only ViewSets Below here

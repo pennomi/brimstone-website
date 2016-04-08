@@ -40,6 +40,21 @@ export class CardService {
         return this._api('get', 'card-types/');
     }
 
+
+    // Card Comments
+    getCommentsForCard(cardId) {
+        return this._api('get', `card-comments/?card=${cardId}`)
+    }
+
+    createComment(cardId, text) {
+        let data = {
+            'card': cardId,
+            'text': text
+        };
+        return this._api('post', 'card-comments/', data);
+    }
+
+
     // Stat Types
     getStatList() {
         // TODO: Cache since this should almost never change

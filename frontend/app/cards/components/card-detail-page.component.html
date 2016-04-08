@@ -15,12 +15,15 @@
     <hr/>
     <h3>Card History</h3>
     <div *ngFor="#c of comments">
+        <hr/>
         <comment [comment]="c"></comment>
     </div>
-    <div>
-        <p>Make a Comment:</p>
-        <comment-form [card]="card"></comment-form>
-    </div>
+
+    <hr/>
+    <p>Make a Comment:</p>
+    <comment-form [card]="card"></comment-form>
+    <hr/>
+
     <div *ngFor="#r of revisions">
         <h4>Revision by {{ r.creator }} (TODO: username)</h4>
         <p *ngIf="r.created_at">Created: {{ r.created_at_date | date }} @ {{ r.created_at_date | date: 'shortTime' }}</p>

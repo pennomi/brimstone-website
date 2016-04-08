@@ -1,5 +1,12 @@
 <div class="comment">
-    <img src="http://placekitten.com/48/48" />
-    <h4>{{ comment.user }} Username | Role | {{ comment.created_at | friendlyDate }}</h4>
-    <p>{{ comment.text }}</p>
+    <img class="comment__profilePic" src="http://placekitten.com/48/48" />
+    <div class="comment__content">
+        <div class="comment__header">
+            <span class="comment__headerUsername">{{ comment.user }} Username</span>
+            <span class="comment__headerRole">Role</span>
+            <span class="comment__headerSpacing"></span>
+            <span class="comment__headerDate">{{ comment.created_at | friendlyDate }}</span>
+        </div>
+        <div class="comment__textBody">{{ comment.text }}</div>
+    </div>
 </div>

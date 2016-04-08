@@ -35,4 +35,11 @@ export class CardStatFieldComponent {
         // Propagate the event
         this.statsChanged.emit(this.stats);
     }
+
+    removeStatClicked(stat) {
+        let index = this.stats.indexOf(stat);
+        if (index > -1) {
+            this.stats.splice(index, 1);
+        }
+    }
 }

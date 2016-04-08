@@ -1,4 +1,4 @@
-<p>Stats and crap</p>
+<p>Stats:</p>
 <div *ngFor="#line of stats">
     <select [(ngModel)]="line.id">
         <option *ngFor="#s of statList" value="{{s.id}}">{{s.name}}</option>

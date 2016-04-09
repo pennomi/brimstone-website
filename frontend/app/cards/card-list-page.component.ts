@@ -1,13 +1,13 @@
 import {Component, OnInit} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {CardService} from '../../foundation/services/card.service';
+import {CardService} from '../services/card.service';
 import {RevisionFormComponent} from './revision-form.component'
 
 
 @Component({
     selector: 'card-list-page',
-    templateUrl: 'app/cards/components/card-list-page.component.html',
-    styleUrls: ['app/cards/components/card-list-page.component.css'],
+    templateUrl: 'app/cards/card-list-page.component.html',
+    styleUrls: ['app/cards/card-list-page.component.css'],
     directives: [ROUTER_DIRECTIVES, RevisionFormComponent]
 })
 export class CardListPageComponent {

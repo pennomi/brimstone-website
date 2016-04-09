@@ -3,7 +3,7 @@ import {RouteParams} from 'angular2/router';
 import {RevisionFormComponent} from './revision-form.component'
 import {CommentComponent} from './comment.component'
 import {CommentFormComponent} from './comment-form.component'
-import {CardService} from '../../foundation/services/card.service'
+import {CardService} from '../services/card.service'
 
 
 let processRevision = (r) => {
@@ -16,8 +16,8 @@ let processRevision = (r) => {
 
 @Component({
     selector: 'card-detail-page',
-    templateUrl: 'app/cards/components/card-detail-page.component.html',
-    styleUrls: ['app/cards/components/card-detail-page.component.css'],
+    templateUrl: 'app/cards/card-detail-page.component.html',
+    styleUrls: ['app/cards/card-detail-page.component.css'],
     directives: [RevisionFormComponent, CommentFormComponent, CommentComponent]
 })
 export class CardDetailPageComponent {

@@ -1,11 +1,11 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
-import {CardService} from '../../foundation/services/card.service'
+import {CardService} from '../services/card.service'
 
 
 // TODO: This fails spectacularly if the input is not an array.
 @Component({
     selector: 'card-stat-field',
-    templateUrl: 'app/cards/components/card-stat-field.component.html'
+    templateUrl: 'app/cards/card-stat-field.component.html'
 })
 export class CardStatFieldComponent {
     constructor(private _cardService: CardService) { }

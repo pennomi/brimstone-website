@@ -1,10 +1,10 @@
 import {Component, OnInit} from 'angular2/core';
-import {AuthenticationService} from '../../foundation/services/authentication.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 
 @Component({
     selector: 'login-page',
-    templateUrl: 'app/foundation/components/login-page.component.html',
+    templateUrl: 'app/foundation/login-page.component.html',
     directives: []
 })
 export class LoginPageComponent {

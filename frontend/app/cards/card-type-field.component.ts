@@ -1,10 +1,10 @@
 import {Component, Input} from 'angular2/core';
-import {CardService} from '../../foundation/services/card.service'
+import {CardService} from '../services/card.service'
 
 
 @Component({
     selector: 'card-type-field',
-    templateUrl: 'app/cards/components/card-type-field.component.html'
+    templateUrl: 'app/cards/card-type-field.component.html'
 })
 export class CardTypeFieldComponent {
     constructor(private _cardService: CardService) { }

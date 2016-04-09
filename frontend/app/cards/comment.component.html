@@ -1,9 +1,9 @@
 <div class="comment">
-    <img class="comment__profilePic" src="http://placekitten.com/48/48" />
+    <img class="comment__profilePic" src="{{ user.image }}" />
     <div class="comment__content">
         <div class="comment__header">
-            <span class="comment__headerUsername">{{ comment.user }} Username</span>
-            <span class="comment__headerRole">Role</span>
+            <span class="comment__headerUsername">{{ user.username }}</span>
+            <span class="comment__headerRole">{{ user.role }}</span>
             <span class="comment__headerDate">{{ comment.created_at | friendlyDate }}</span>
         </div>
         <div class="comment__textBody">{{ comment.text }}</div>

@@ -19,3 +19,4 @@ ROLE_CHOICES = (
 
 class User(AbstractUser):
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=0)
+    image = models.ImageField(null=True, blank=True)

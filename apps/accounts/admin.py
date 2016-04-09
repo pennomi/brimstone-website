@@ -8,5 +8,5 @@ from .models import User
 class UserAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ('role',)
     fieldsets = (
-        (None, {'fields': ('role',)}),
+        (None, {'fields': ('role', 'image',)}),
     ) + UserAdmin.fieldsets

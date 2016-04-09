@@ -1,11 +1,14 @@
 <div class="header">
-    <h1>Brimstone RPG:</h1>
-    <nav>
-        <a [routerLink]="['Home']">Home</a>
-        <a [routerLink]="['CardList']">Cards</a>
-        <a [routerLink]="['Login']">Login</a>
-    </nav>
+    <div class="container">
+        <h1>Brimstone RPG</h1>
+        <nav>
+            <a [routerLink]="['Home']">Home</a>
+            <a [routerLink]="['CardList']">Cards</a>
+            <a [routerLink]="['Login']">Login</a>
+        </nav>
+    </div>
+
 </div>
-<div class="container">
+<div class="container container--body">
     <router-outlet></router-outlet>
 </div>

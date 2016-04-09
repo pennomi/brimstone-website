@@ -17,6 +17,7 @@ let processRevision = (r) => {
 @Component({
     selector: 'card-detail-page',
     templateUrl: 'app/cards/components/card-detail-page.component.html',
+    styleUrls: ['app/cards/components/card-detail-page.component.css'],
     directives: [RevisionFormComponent, CommentFormComponent, CommentComponent]
 })
 export class CardDetailPageComponent {

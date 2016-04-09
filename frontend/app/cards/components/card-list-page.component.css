@@ -1,0 +1,22 @@
+.cardList {
+    border-collapse: collapse;
+}
+
+.cardList__row:nth-child(odd) {
+    background-color: #EFEBE9;
+}
+
+.cardList__row:nth-child(even) {
+    background-color: #D7CCC8;
+}
+
+.cardList__cell {
+    border: 1px black solid;
+    margin: 0;
+    padding: .5em;
+}
+
+.cardList__cell--header {
+    background-color: #5D4037;
+    color: white;
+}

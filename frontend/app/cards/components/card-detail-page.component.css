@@ -1,0 +1,29 @@
+.cardDetail__container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #BCAAA4;
+    border: 1px solid #6D4C41;
+}
+
+.cardDetail__container > * {
+    margin: 10px;
+}
+
+.cardDetail__containerImage {
+    /* Build a "transparency checkerboard" background. */
+    background-color: white;
+    background-image:
+        linear-gradient(45deg, #DDD 25%, transparent 25%,transparent 75%, #DDD 75%, #DDD 100%),
+        linear-gradient(45deg, #DDD 25%, transparent 25%,transparent 75%, #DDD 75%, #DDD 100%);
+    background-size:26px 26px;
+    background-position:0 0, 13px 13px;
+}
+
+.cardDetail__containerInfo {
+    flex-grow: 1;
+}
+
+.cardDetail__containerImage img {
+    width:330px;
+    height: auto;
+}

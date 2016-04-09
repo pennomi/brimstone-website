@@ -5,6 +5,7 @@ import {FriendlyDatePipe} from '../../foundation/pipes/friendly-date.pipe'
 @Component({
     selector: 'comment',
     templateUrl: 'app/cards/components/comment.component.html',
+    styleUrls: ['app/cards/components/comment.component.css'],
     pipes: [FriendlyDatePipe]
 })
 export class CommentComponent {

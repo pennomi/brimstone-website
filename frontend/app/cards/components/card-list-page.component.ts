@@ -7,6 +7,7 @@ import {RevisionFormComponent} from './revision-form.component'
 @Component({
     selector: 'card-list-page',
     templateUrl: 'app/cards/components/card-list-page.component.html',
+    styleUrls: ['app/cards/components/card-list-page.component.css'],
     directives: [ROUTER_DIRECTIVES, RevisionFormComponent]
 })
 export class CardListPageComponent {

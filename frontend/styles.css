@@ -1,10 +1,9 @@
 /* Global Styles */
 body {
     margin: 0;
+    font-family: DroidSerif;
 }
-* {
-  font-family: DroidSerif;
-}
+
 
 /* Header */
 .header {
@@ -13,18 +12,16 @@ body {
     padding: 1em;
 }
 
+
 /* Container */
 .container {
     padding: 1em;
 }
 
+
 /* Card List */
 .cardList {
     border-collapse: collapse;
-}
-.cardList thead {
-    background-color: #5D4037;
-    color: white;
 }
 .cardList__row:nth-child(odd) {
     background-color: #EFEBE9;
@@ -32,16 +29,16 @@ body {
 .cardList__row:nth-child(even) {
     background-color: #D7CCC8;
 }
-.cardList th {
+.cardList__cell {
     border: 1px black solid;
     margin: 0;
     padding: .5em;
 }
-.cardList td {
-    border: 1px black solid;
-    margin: 0;
-    padding: .5em;
+.cardList__cell--header {
+    background-color: #5D4037;
+    color: white;
 }
+
 
 /* Card Detail */
 .cardDetail__container {
@@ -53,7 +50,6 @@ body {
 .cardDetail__container > * {
     margin: 10px;
 }
-
 .cardDetail__containerImage {
     /* Build a "transparency checkerboard" background. */
     background-color: white;
@@ -63,55 +59,46 @@ body {
     background-size:26px 26px;
     background-position:0 0, 13px 13px;
 }
-
 .cardDetail__containerInfo {
     flex-grow: 1;
 }
-
 .cardDetail__containerImage img {
     width:330px;
     height: auto;
 }
 
+
 /* Comments */
 .comment {
     display: flex;
 }
-
 .comment__profilePic {
-    width: 48px;
+    flex: 0 0 48px;
     height: 48px;
-    border-radius: 24px;
+    border-radius: 50%;
     margin-right: 1em;
 }
-
 .comment__content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
-
 .comment__header {
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
 }
-
-.comment__headerSpacing {
-    flex-grow: 1;
-}
-
 .comment__headerUsername {
     font-weight: bold;
     margin-right: 1em;
 }
-
 .comment__headerRole {
     color: #757575;
 }
-
+.comment__headerDate {
+    margin-left: auto;
+}
 .comment__textBody {
     padding-top: 1em;
-    flex-grow: 1;
     white-space: pre-wrap;
 }

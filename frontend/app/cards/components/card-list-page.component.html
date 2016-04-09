@@ -1,18 +1,18 @@
 <table class="cardList">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Revision</th>
-            <th>Pending Revisions</th>
+            <th class="cardList__cell cardList__cell--header">Name</th>
+            <th class="cardList__cell cardList__cell--header">Type</th>
+            <th class="cardList__cell cardList__cell--header">Revision</th>
+            <th class="cardList__cell cardList__cell--header">Pending Revisions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="#card of cards" class="cardList__row">
-            <td><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.latest_revision.name }}</a></td>
-            <td>{{ getTypeName(card) }}</td>
-            <td>{{ card.approved_revisions }}</td>
-            <td>{{ card.pending_revisions }}</td>
+            <td class="cardList__cell"><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.latest_revision.name }}</a></td>
+            <td class="cardList__cell">{{ getTypeName(card) }}</td>
+            <td class="cardList__cell">{{ card.approved_revisions }}</td>
+            <td class="cardList__cell">{{ card.pending_revisions }}</td>
         </tr>
     </tbody>
 </table>

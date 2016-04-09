@@ -26,9 +26,9 @@
 
     <div *ngFor="#r of revisions">
         <h4>Revision by {{ r.creator }} (TODO: username)</h4>
-        <p *ngIf="r.created_at">Created: {{ r.created_at_date | date }} @ {{ r.created_at_date | date: 'shortTime' }}</p>
-        <p *ngIf="r.approved_at">Approved: {{ r.approved_at_date | date }} @ {{ r.approved_at_date | date: 'shortTime' }}</p>
-        <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at_date | date }} @ {{ r.rejected_at_date | date: 'shortTime' }}</p>
+        <p>Created: {{ r.created_at | friendlyDate }}</p>
+        <p *ngIf="r.approved_at">Approved: {{ r.approved_at | friendlyDate }}</p>
+        <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at | friendlyDate }}</p>
         <p>{{ r.name }}</p>
         <button *ngIf="!r.approved_at && !r.rejected_at" (click)="approveClicked(r)">Approve</button>
         <button *ngIf="!r.approved_at && !r.rejected_at" (click)="rejectClicked(r)">Reject</button>

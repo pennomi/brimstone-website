@@ -1,24 +1,18 @@
 import {Component, OnInit} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {RevisionFormComponent} from './revision-form.component'
-import {CommentComponent} from './comment.component'
-import {CommentFormComponent} from './comment-form.component'
-import {CardService} from '../services/card.service'
-
-
-let processRevision = (r) => {
-    // TODO: Consider moving this to the service
-    r.created_at_date = new Date(r.created_at);
-    r.approved_at_date = new Date(r.approved_at);
-    r.rejected_at_date = new Date(r.rejected_at);
-};
+import {RevisionFormComponent} from './revision-form.component';
+import {CommentComponent} from './comment.component';
+import {CommentFormComponent} from './comment-form.component';
+import {CardService} from '../services/card.service';
+import {FriendlyDatePipe} from '../pipes/friendly-date.pipe';
 
 
 @Component({
     selector: 'card-detail-page',
     templateUrl: 'app/cards/card-detail-page.component.html',
     styleUrls: ['app/cards/card-detail-page.component.css'],
-    directives: [RevisionFormComponent, CommentFormComponent, CommentComponent]
+    directives: [RevisionFormComponent, CommentFormComponent, CommentComponent],
+    pipes: [FriendlyDatePipe]
 })
 export class CardDetailPageComponent {
     constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
@@ -33,7 +27,6 @@ export class CardDetailPageComponent {
             data => {
                 // Save the response data
                 this.card = data;
-                processRevision(this.card.latest_revision);
 
                 // Generate a new revision that copies data from the latest
                 this.blankRevision = JSON.parse(JSON.stringify(this.card.latest_revision))
@@ -47,9 +40,6 @@ export class CardDetailPageComponent {
         this._cardService.getRevisionsForCard(id).subscribe(
             data => {
                 this.revisions = data;
-                for (let r of this.revisions) {
-                    processRevision(r);
-                }
             },
             err => this.error = "Could not retrieve card revisions."
         );

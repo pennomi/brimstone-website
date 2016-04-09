@@ -38,9 +38,7 @@ export class CardDetailPageComponent {
         // Fetch all revisions of this card
         this.revisions = [];
         this._cardService.getRevisionsForCard(id).subscribe(
-            data => {
-                this.revisions = data;
-            },
+            data => this.revisions = data,
             err => this.error = "Could not retrieve card revisions."
         );
 
@@ -48,8 +46,22 @@ export class CardDetailPageComponent {
         this.comments = [];
         this._cardService.getCommentsForCard(id).subscribe(
             data => this.comments = data,
-            err => this.error = "Could not retrieve card revisions."
+            err => this.error = "Could not retrieve card comments."
         );
+
+        // Fetch all users
+        this.users = [];
+        this._cardService.getUsers().subscribe(
+            data => this.users = data,
+            err => this.error = "Could not retrieve users."
+        );
+    }
+
+    getUserInfo(userId) {
+        if (typeof this.users == 'undefined' || this.users.length <= 0) {
+            return {};
+        }
+        return _.find(this.users, ['id', userId]);
     }
 
     approveClicked(revision) {

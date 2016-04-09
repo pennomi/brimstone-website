@@ -25,7 +25,7 @@
     <hr/>
 
     <div *ngFor="#r of revisions">
-        <h4>Revision by {{ r.creator }} (TODO: username)</h4>
+        <h4>Revision by {{ getUserInfo(r.creator).username }}</h4>
         <p>Created: {{ r.created_at | friendlyDate }}</p>
         <p *ngIf="r.approved_at">Approved: {{ r.approved_at | friendlyDate }}</p>
         <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at | friendlyDate }}</p>

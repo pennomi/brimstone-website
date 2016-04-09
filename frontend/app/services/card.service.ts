@@ -61,6 +61,7 @@ export class CardService {
         return this._api('get', 'stat-types/');
     }
 
+
     // Revisions
     getRevisionsForCard(cardId) {
         return this._api('get', `card-revisions/?card=${cardId}`);
@@ -81,5 +82,11 @@ export class CardService {
 
     rejectRevision(revisionId) {
         return this._api('post', `card-revisions/${revisionId}/reject/`);
+    }
+
+
+    // Users
+    getUsers() {
+        return this._api('get', 'users/');
     }
 }

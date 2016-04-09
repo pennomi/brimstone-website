@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
+from apps.accounts.views import UserViewSet
 from apps.cards import views
 
 
@@ -33,6 +34,7 @@ router.register('cards', views.CardViewSet)
 router.register('decks', views.DeckViewSet)
 router.register('rulebooks', views.RulebookViewSet)
 router.register('stat-types', views.StatTypeViewSet)
+router.register('users', UserViewSet)
 
 
 urlpatterns = [

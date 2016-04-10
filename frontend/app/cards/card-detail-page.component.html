@@ -13,27 +13,33 @@
         </div>
     </div>
     <hr/>
-    <h3>Card History</h3>
-    <div *ngFor="#c of comments">
+
+    <!-- Revisions and Comments -->
+    <button (click)="viewRevisionMode = false" [disabled]="!viewRevisionMode">Comments</button>
+    <button (click)="viewRevisionMode = true" [disabled]="viewRevisionMode">Revisions</button>
+    <div *ngIf="!viewRevisionMode">
+        <div *ngFor="#c of comments">
+            <hr/>
+            <comment [comment]="c"></comment>
+        </div>
+
         <hr/>
-        <comment [comment]="c"></comment>
+        <p>Make a Comment:</p>
+        <comment-form [card]="card"></comment-form>
+        <hr/>
     </div>
-
-    <hr/>
-    <p>Make a Comment:</p>
-    <comment-form [card]="card"></comment-form>
-    <hr/>
-
-    <div *ngFor="#r of revisions">
-        <h4>Revision by {{ getUserInfo(r.creator).username }}</h4>
-        <p>Created: {{ r.created_at | friendlyDate }}</p>
-        <p *ngIf="r.approved_at">Approved: {{ r.approved_at | friendlyDate }}</p>
-        <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at | friendlyDate }}</p>
-        <p>{{ r.name }}</p>
-        <button *ngIf="!r.approved_at && !r.rejected_at" (click)="approveClicked(r)">Approve</button>
-        <button *ngIf="!r.approved_at && !r.rejected_at" (click)="rejectClicked(r)">Reject</button>
-        <revision-form *ngIf="!r.approved_at && !r.rejected_at" [revision]="r"></revision-form>
-        <hr/>
+    <div *ngIf="viewRevisionMode">
+        <div *ngFor="#r of revisions">
+            <h4>Revision by {{ getUserInfo(r.creator).username }}</h4>
+            <p>Created: {{ r.created_at | friendlyDate }}</p>
+            <p *ngIf="r.approved_at">Approved: {{ r.approved_at | friendlyDate }}</p>
+            <p *ngIf="r.rejected_at">Rejected: {{ r.rejected_at | friendlyDate }}</p>
+            <p>{{ r.name }}</p>
+            <button *ngIf="!r.approved_at && !r.rejected_at" (click)="approveClicked(r)">Approve</button>
+            <button *ngIf="!r.approved_at && !r.rejected_at" (click)="rejectClicked(r)">Reject</button>
+            <revision-form *ngIf="!r.approved_at && !r.rejected_at" [revision]="r"></revision-form>
+            <hr/>
+        </div>
     </div>
 </div>
 <div *ngIf="error">

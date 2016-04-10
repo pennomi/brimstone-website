@@ -18,6 +18,7 @@ export class CardDetailPageComponent {
     constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
 
     editMode: bool = false
+    viewRevisionMode: bool = false
 
     ngOnInit() {
         // Fetch the card

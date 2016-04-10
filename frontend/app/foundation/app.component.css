@@ -17,7 +17,4 @@
 
 .container--body {
     background-color: white;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: -1;
 }

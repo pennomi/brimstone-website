@@ -3,18 +3,21 @@
         <tr>
             <th class="cardList__cell cardList__cell--header">Name</th>
             <th class="cardList__cell cardList__cell--header">Type</th>
-            <th class="cardList__cell cardList__cell--header">Revision</th>
-            <th class="cardList__cell cardList__cell--header">Pending Revisions</th>
+            <th class="cardList__cell cardList__cell--header cardList__cell--icon"><i class="fa fa-comment" title="Comments"></i></th>
+            <th class="cardList__cell cardList__cell--header cardList__cell--icon"><i class="fa fa-code-fork" title="Suggested Revisions"></i></th>
+            <th class="cardList__cell cardList__cell--header cardList__cell--description">Description</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="#card of cards" class="cardList__row">
             <td class="cardList__cell"><a [routerLink]="['CardDetail', { id: card.id }]">{{ card.latest_revision.name }}</a></td>
             <td class="cardList__cell">{{ getTypeName(card) }}</td>
-            <td class="cardList__cell">{{ card.approved_revisions }}</td>
-            <td class="cardList__cell">{{ card.pending_revisions }}</td>
+            <td class="cardList__cell cardList__cell--icon">{{ card.comments }}</td>
+            <td class="cardList__cell cardList__cell--icon">{{ card.pending_revisions }}</td>
+            <td class="cardList__cell cardList__cell--description">{{ card.latest_revision?.description }}</td>
         </tr>
     </tbody>
 </table>
+
 <h3>Submit a new card idea:</h3>
 <revision-form></revision-form>

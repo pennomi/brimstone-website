@@ -1,5 +1,7 @@
 .cardList {
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .cardList__row:nth-child(odd) {
@@ -14,9 +16,22 @@
     border: 1px black solid;
     margin: 0;
     padding: .5em;
+    width: auto;
 }
 
 .cardList__cell--header {
     background-color: #5D4037;
     color: white;
+}
+
+.cardList__cell--description {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 50%;
+}
+
+.cardList__cell--icon {
+    width: 1em;
+    text-align: center;
 }

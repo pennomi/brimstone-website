@@ -53,12 +53,16 @@ class CardSerializer(serializers.ModelSerializer):
     latest_revision = CardRevisionSerializer()
     pending_revisions = serializers.SerializerMethodField()
     approved_revisions = serializers.SerializerMethodField()
+    comments = serializers.SerializerMethodField()
 
     def get_pending_revisions(self, card):
         return card.revisions.filter(approved_at=None, rejected_at=None).count()
 
     def get_approved_revisions(self, card):
         return card.revisions.exclude(approved_at=None).count()
+
+    def get_comments(self, card):
+        return card.comments.count()
 
     class Meta:
         model = models.Card

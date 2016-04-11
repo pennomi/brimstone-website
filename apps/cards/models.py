@@ -126,6 +126,8 @@ class CardRevision(models.Model):
     art = models.ForeignKey(
         CardArt, null=True, blank=True, on_delete=models.PROTECT)
     stats = JSONField(default=[], blank=True)  # TODO: Add validation
+    table = JSONField(default=[], blank=True)  # TODO: Add validation
+    table_y = models.IntegerField(default=0)
     description = models.TextField(blank=True)
 
     # Audit Trail

@@ -1,0 +1,9 @@
+<table>
+    <tbody>
+        <tr *ngFor="#row of tableCopy; #i=index">
+            <td *ngFor="#column of row; #j=index">
+                <input value="{{ column }}" (keyup)="valueChanged(i, j, $event.srcElement.value)">
+            </td>
+        </tr>
+    </tbody>
+</table>

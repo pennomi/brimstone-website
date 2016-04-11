@@ -2,11 +2,12 @@ import {Component, Input} from 'angular2/core';
 import {CardService} from '../services/card.service'
 import {CardTypeFieldComponent} from './card-type-field.component'
 import {CardStatFieldComponent} from './card-stat-field.component'
+import {CardTableFieldComponent} from './card-table-field.component'
 
 @Component({
     selector: 'revision-form',
     templateUrl: 'app/cards/revision-form.component.html',
-    directives: [CardTypeFieldComponent, CardStatFieldComponent]
+    directives: [CardTypeFieldComponent, CardStatFieldComponent, CardTableFieldComponent]
 })
 export class RevisionFormComponent {
     constructor(private _cardService: CardService) { }

@@ -15,5 +15,9 @@
         <label>Description:</label>
         <textarea [(ngModel)]="revision.description" placeholder="Description"></textarea>
     </li>
+    <li>
+        <label>Table Data:</label>
+        <card-table-field [table]="revision.table" (tableChanged)="modifyTable($event)"></card-table-field>
+    </li>
 </ul>
 <button (click)="submitClicked()">Submit</button>

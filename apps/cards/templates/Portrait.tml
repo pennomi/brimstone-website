@@ -105,7 +105,7 @@ Image {
 # Render fancy text
 Text {
     id: title
-    text: {{ card.title }}
+    text: {{ card.name }}
     x: 0
     y: 68
     w: 825

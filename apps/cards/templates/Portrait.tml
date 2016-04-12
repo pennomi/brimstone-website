@@ -141,10 +141,10 @@ Text {
 }
 
 # Show a table if needed TODO: anchor to description bottom automatically
-{% if card.table_data %}
+{% if card.table %}
     Table {
         id: table
-        data: {{ card.table_data }}
+        data: {{ card.table }}
         x: 169
         y: {{ card.table_y + 207 }}
         w: 581

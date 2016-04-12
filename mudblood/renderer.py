@@ -53,17 +53,11 @@ class EllipsizeMode(IntEnum):
 class CairoRenderer:
     def __init__(self, width: int, height: int):
         """Initialize a text-enabled cairo surface we can draw on."""
-        print("INIT", PC)
         self.surface = PC.cairo_image_surface_create(
             CAIRO_FORMAT_ARGB32, int(width), int(height))
-        print("SURF", self.surface)
-
         self.context = PC.cairo_create(self.surface)
-        print("CONTEXT")
         self.layout = PC.pango_cairo_create_layout(self.context)
-        print("LAYOUT")
         self.buffer = None
-        print("DONE INIT")
 
     def set_font(self, font_name: str, font_size: int):
         description = "{} {}".format(font_name, font_size)
@@ -125,7 +119,6 @@ class CairoRenderer:
     def scale(self, x: float, y: float):
         PC.cairo_scale(self.context, c_double(x), c_double(y))
         try:
-            # print("scale")
             yield
         finally:
             PC.cairo_scale(self.context, c_double(1/x), c_double(1/y))
@@ -166,13 +159,11 @@ class CairoRenderer:
 
     def set_image_buffer(self, filepath):
         """Load an image into the pixbuf."""
-        print("SET IMAGE BUF")
         self.buffer, width, height = _load_image(filepath)
         return width, height
 
     def paint_image(self):
         """Draw the active pixbuf on the surface."""
-        print("PAINT IMAGE")
         GDK.gdk_cairo_set_source_pixbuf(
             self.context, self.buffer, c_double(0), c_double(0))
         PC.cairo_paint(self.context)
@@ -185,9 +176,7 @@ class CairoRenderer:
     # TODO: Ensure the directory exists; otherwise this will segfault.
     def save(self, filename):
         """Render this surface to PNG format."""
-        print("SAVING")
         PC.cairo_surface_write_to_png(self.surface, c_char_p(filename.encode()))
-        print("DONE")
 
     def __del__(self):
         """Destroy all the objects we've created."""

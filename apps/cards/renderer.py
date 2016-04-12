@@ -1,6 +1,7 @@
 """
 Render a card using the "mudblood" framework.
 """
+import json
 import os
 import tempfile
 
@@ -24,8 +25,6 @@ def _replace_markup(card, key):
 
 
 def generate_image(revision):
-    print("Rendering card data...")
-
     # Convert the revision into something we care about using
     card = dict(
         id=str(revision.id).rjust(3, "0"),
@@ -37,13 +36,13 @@ def generate_image(revision):
         subtitle=revision.type.name,
         description=revision.description.replace('\n', '\\n'),
         deck="{}",
-        table_data="",  # TODO: json.dumps(revision.table_data)
-        table_y=0,  # TODO: revision.table_y
+        table=json.dumps(revision.table),
+        table_y=revision.table_y,
     )
 
     # Parse Markup
     _replace_markup(card, 'description')
-    _replace_markup(card, 'table_data')
+    # _replace_markup(card, 'table')
     _replace_markup(card, 'artist')
     _replace_markup(card, 'deck')
 
@@ -67,5 +66,4 @@ def generate_image(revision):
         # Execute the renderer
         cmd = 'python generate_image.py {} {} {} {}'.format(
             out_filepath, 825, 1125, filename)
-        print(cmd)
         os.system(cmd)

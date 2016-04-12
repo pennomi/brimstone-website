@@ -1,8 +1,8 @@
 # Card art
-{% if card.image %}
+{% if card.art %}
     Image {
         id: art
-        file: {{ card.image }}
+        file: {{ card.art }}
         x: 72
         y: 149
         w: 753
@@ -10,7 +10,7 @@
     }
     Text {
         id: artist_shadow
-        text: {{ card.artist }}
+        text: {}{{ card.artist }}
         x: 247
         y: 535
         w: 500
@@ -22,7 +22,7 @@
     }
     Text {
         id: artist
-        text: {{ card.artist }}
+        text: {}{{ card.artist }}
         x: 246
         y: 534
         w: 500
@@ -130,7 +130,7 @@ Text {
 }
 
 Text {
-    text: {{ card.description }}
+    text: {{ card.description | markup }}
     x: 169
     y: {% if card.image %}579{% else %}207{% endif %}
     w: 581
@@ -144,7 +144,7 @@ Text {
 {% if card.table %}
     Table {
         id: table
-        data: {{ card.table }}
+        data: {{ card.table | jsonify }}
         x: 169
         y: {{ card.table_y + 207 }}
         w: 581
@@ -170,7 +170,8 @@ Text {
 
 # Version Number
 Text {
-    text: {{ card.set }} {{ card.id }} : {{ card.version }}
+    # TODO Replace the deck icon with data
+    text: {} {{ card.id }} : {{ card.version }}
     x: 370
     y: 1012
     w: 263

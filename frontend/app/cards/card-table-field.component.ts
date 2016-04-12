@@ -19,25 +19,9 @@ export class CardTableFieldComponent {
         console.log(JSON.stringify(this.table));
     }
 
-//    addStatClicked() {
-//        // Do error validation
-//        if (!this.stats || !(this.stats.constructor === Array)) {
-//            console.log("Fixing a bad model thingy");
-//            this.stats = [];
-//        }
-//
-//        // Add a new line
-//        this.stats.push({id:`${this.statList[0].id}`, value:""});
-//
-//        // Propagate the event
-//        this.statsChanged.emit(this.stats);
-//    }
-//
-//    removeStatClicked(stat) {
-//        let index = this.stats.indexOf(stat);
-//        if (index > -1) {
-//            this.stats.splice(index, 1);
-//        }
-//    }
-
+    addRow() {
+        let width = this.table[0].length
+        this.table.push(Array(width).fill(""))
+        this.tableCopy.push(Array(width).fill(""))
+    }
 }

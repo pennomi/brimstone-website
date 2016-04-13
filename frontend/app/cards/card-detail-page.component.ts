@@ -78,4 +78,12 @@ export class CardDetailPageComponent {
             err => this.error = "Could not reject."
         );
     }
+
+    // TODO: Make this happen automatically whenever the revision changes
+    previewClicked() {
+        this._cardService.previewRevision(this.blankRevision).subscribe(
+            data => this.imagePreviewUrl = data._body,
+            err => this.error = "Could not preview."
+        )
+    }
 }

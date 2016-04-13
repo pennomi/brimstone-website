@@ -8,10 +8,11 @@ import tempfile
 from django.conf import settings
 from jinja2 import Environment, FileSystemLoader
 from apps.cards.models import StatType, CardType, CardArt
-from apps.cards.serializers import CardRevisionSerializer
 
 
 # Template Filters
+
+
 def jsonify(s):
     return json.dumps(s)
 
@@ -78,23 +79,24 @@ TEMPLATE = env.get_template('Portrait.tml')
 
 
 # Driver
-def generate_image(revision):
-    # Use the serializer to get a JSON representation of the card
-    s = CardRevisionSerializer(revision)
-    revision_data = s.data.copy()
+def generate_image(data):
+    """Takes in the output of the revision's serializer, renders the card, then
+    returns the binary data of the card.
+    """
 
-    # Render the image using squib
-    # TODO: Can we do this without subprocess?
-    filename = os.path.join(
-        settings.MEDIA_ROOT, 'cards', 'renders', "{}.png".format(revision.id))
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        out_filepath = os.path.join(tmpdir, 'template.tml')
-        with open(out_filepath, 'w') as outfile:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        # Render template to file
+        tml_file = os.path.join(tmp_dir, 'template.tml')
+        with open(tml_file, 'w') as outfile:
             # Render the template using jinja
-            outfile.write(TEMPLATE.render(rev=revision_data))
+            outfile.write(TEMPLATE.render(rev=data))
 
         # Execute the renderer
+        png_file = os.path.join(tmp_dir, 'render.png')
         cmd = 'python generate_image.py {} {} {} {}'.format(
-            out_filepath, 825, 1125, filename)
+            tml_file, 825, 1125, png_file)
         os.system(cmd)
+
+        # Load the result as binary data and return it
+        with open(png_file, 'rb') as infile:
+            return infile.read()

@@ -1,4 +1,5 @@
 import itertools
+import os
 
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
@@ -147,9 +148,19 @@ class CardRevision(models.Model):
         get_latest_by = "approved_at"
 
     def save(self, **kwargs):
+        # Must import here to avoid import loops
         from apps.cards.renderer import generate_image
-        generate_image(self)
-        super().save(**kwargs)
+        from apps.cards.serializers import CardRevisionSerializer
+
+        s = CardRevisionSerializer(self)
+        filename = os.path.join(
+            settings.MEDIA_ROOT, 'cards', 'renders', "{}.png".format(self.id))
+        # TODO: Load this into an ImageField instead
+        with open(filename, 'wb') as outfile:
+            data = generate_image(s.data)
+            outfile.write(data)
+
+        return super().save(**kwargs)
 
     def __str__(self):
         return self.name

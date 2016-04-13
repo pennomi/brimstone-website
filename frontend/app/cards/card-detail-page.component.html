@@ -1,7 +1,8 @@
 <div *ngIf="!error">
     <div class="cardDetail__container">
         <div class="cardDetail__containerImage">
-            <img *ngIf="card.latest_revision.id" src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
+            <img *ngIf="card.latest_revision.id && !imagePreviewUrl" src="http://localhost:8000/media/cards/renders/{{ card.latest_revision.id }}.png">
+            <img *ngIf="imagePreviewUrl" src="{{ imagePreviewUrl }}">
         </div>
         <div class="cardDetail__containerInfo">
             <div *ngIf="!editMode">
@@ -9,6 +10,7 @@
                 <p>{{ card.latest_revision.description }}</p>
             </div>
             <revision-form *ngIf="editMode" [revision]="blankRevision"></revision-form>
+            <button (click)="previewClicked()">Preview</button>
             <button (click)="editMode = !editMode">{{ editMode ? "Cancel Editing" : "Suggest an Edit" }}</button>
         </div>
     </div>

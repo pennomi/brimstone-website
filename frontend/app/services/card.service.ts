@@ -8,7 +8,7 @@ export class CardService {
     constructor(private http:Http, private _authenticationService:AuthenticationService) { }
 
     // A basic request method that standardizes authentication
-    _api(method, url, body=undefined) {
+    _api(method, url, body=undefined, raw=false) {
         // TODO: This is failing on Firefox for some stupid reason.
         var headers = new Headers({
             'Accept': 'application/json',
@@ -18,9 +18,14 @@ export class CardService {
             headers.append('Authorization', 'Basic ' + this._authenticationService.getAuthToken());
         }
         let options = new RequestOptions({ headers: headers });
-        return this.http[method](
+        var request = this.http[method](
             `http://localhost:8000/api/${url}`, JSON.stringify(body), options
-        ).map((res:Response) => res.json());
+        )
+        if (raw) {
+            return request
+        } else {
+            return request.map((res:Response) => res.json());
+        }
     }
 
 
@@ -82,6 +87,10 @@ export class CardService {
 
     rejectRevision(revisionId) {
         return this._api('post', `card-revisions/${revisionId}/reject/`);
+    }
+
+    previewRevision(revisionData) {
+        return this._api('post', `card-revisions/preview/`, revisionData, true);
     }
 
 

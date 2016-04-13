@@ -14,9 +14,9 @@ class CardRevisionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CardRevision
-        read_only_fields = (
-            'approved_at', 'approver', 'rejected_at', 'rejector'
-        )
+        # read_only_fields = (
+        #     'approved_at', 'approver', 'rejected_at', 'rejector'
+        # )
 
 
 class CardCommentSerializer(serializers.ModelSerializer):

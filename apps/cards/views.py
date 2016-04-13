@@ -1,12 +1,16 @@
+import base64
+
 from django.db import transaction
+from django.http import HttpResponse
 from django.utils import timezone
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 
 from apps.cards import models
 from apps.cards import serializers
 from apps.cards import permissions
+from apps.cards.renderer import generate_image
 
 
 class CardRevisionViewSet(viewsets.ModelViewSet):
@@ -35,6 +39,15 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
 
             # Continue as normal
             return super().create(request, *args, **kwargs)
+
+    @list_route(methods=['POST'])
+    def preview(self, request):
+        print(request.data)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = generate_image(serializer.data)
+        b64 = base64.b64encode(data)
+        return HttpResponse(b"data:image/PNG;base64," + b64, status=200)
 
     @detail_route(
         methods=['POST'],

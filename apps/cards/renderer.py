@@ -62,25 +62,26 @@ def markup(s):
     return s
 
 
+# Set up Jinja and load the template
+env = Environment(loader=FileSystemLoader(
+    os.path.join(settings.BASE_DIR, 'apps', 'cards', 'templates')))
+env.filters['jsonify'] = jsonify
+env.filters['markup'] = markup
+env.filters['rjust'] = rjust
+env.filters['type_name'] = type_name
+env.filters['stat_name'] = stat_name
+env.filters['stat_icon'] = stat_icon
+env.filters['background_image'] = background_image
+env.filters['art_image'] = art_image
+env.filters['escape_newlines'] = escape_newlines
+TEMPLATE = env.get_template('Portrait.tml')
+
+
 # Driver
 def generate_image(revision):
     # Use the serializer to get a JSON representation of the card
     s = CardRevisionSerializer(revision)
     revision_data = s.data.copy()
-
-    # Set up Jinja and load the template
-    env = Environment(loader=FileSystemLoader(
-        os.path.join(settings.BASE_DIR, 'apps', 'cards', 'templates')))
-    env.filters['jsonify'] = jsonify
-    env.filters['markup'] = markup
-    env.filters['rjust'] = rjust
-    env.filters['type_name'] = type_name
-    env.filters['stat_name'] = stat_name
-    env.filters['stat_icon'] = stat_icon
-    env.filters['background_image'] = background_image
-    env.filters['art_image'] = art_image
-    env.filters['escape_newlines'] = escape_newlines
-    template = env.get_template('Portrait.tml')
 
     # Render the image using squib
     # TODO: Can we do this without subprocess?
@@ -91,7 +92,7 @@ def generate_image(revision):
         out_filepath = os.path.join(tmpdir, 'template.tml')
         with open(out_filepath, 'w') as outfile:
             # Render the template using jinja
-            outfile.write(template.render(rev=revision_data))
+            outfile.write(TEMPLATE.render(rev=revision_data))
 
         # Execute the renderer
         cmd = 'python generate_image.py {} {} {} {}'.format(

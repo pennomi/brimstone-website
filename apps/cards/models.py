@@ -4,8 +4,6 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
-from apps.cards.renderer import generate_image
-
 
 class Rulebook(models.Model):
     version = models.IntegerField()
@@ -149,6 +147,7 @@ class CardRevision(models.Model):
         get_latest_by = "approved_at"
 
     def save(self, **kwargs):
+        from apps.cards.renderer import generate_image
         generate_image(self)
         super().save(**kwargs)
 

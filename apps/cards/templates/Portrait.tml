@@ -1,8 +1,8 @@
 # Card art
-{% if card.art %}
+{% if rev.art %}
     Image {
         id: art
-        file: {{ card.art }}
+        file: {{ rev.art | art_image }}
         x: 72
         y: 149
         w: 753
@@ -10,7 +10,7 @@
     }
     Text {
         id: artist_shadow
-        text: {}{{ card.artist }}
+        text: {}{{ rev.artist }}
         x: 247
         y: 535
         w: 500
@@ -22,7 +22,7 @@
     }
     Text {
         id: artist
-        text: {}{{ card.artist }}
+        text: {}{{ rev.artist }}
         x: 246
         y: 534
         w: 500
@@ -37,14 +37,14 @@
 # Set up the background and icon
 Image {
     id: background
-    file: {{ card.background }}
+    file: {{ rev.type | background_image }}
     x: 0
     y: 0
     w: 825
     h: 1125
 }
 
-{% for stat in card.stats %}
+{% for stat in rev.stats %}
     {% set stat_top = 207 %}
     {% set stat_spacing = 30 %}
     {% set stat_height = 68 %}
@@ -63,7 +63,7 @@ Image {
     }
 
     Text {
-        text: {{ stat.text }}
+        text: {{ stat.value }}
         x: 75
         y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_font_offset}}
         w: 263
@@ -83,7 +83,7 @@ Image {
     }
 
     Image {
-        file: {{ stat.icon }}
+        file: {{ stat.id | stat_icon }}
         x: {{ 75 + stat_icon_padding }}
         y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_padding - stat_icon_size / 2 }}
         w: {{ stat_icon_size - stat_icon_padding * 2 }}
@@ -91,7 +91,7 @@ Image {
     }
 
     Text {
-        text: {{ stat.name }}
+        text: {{ stat.id | stat_name }}
         x: 75
         y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_size / 2 - stat_icon_padding}}
         w: 263
@@ -105,7 +105,7 @@ Image {
 # Render fancy text
 Text {
     id: title
-    text: {{ card.name }}
+    text: {{ rev.name }}
     x: 0
     y: 68
     w: 825
@@ -118,7 +118,7 @@ Text {
 
 Text {
     id: subtitle
-    text: {{ card.subtitle }}
+    text: {{ rev.type | type_name }}
     x: 0
     y: 134
     w: 825
@@ -130,9 +130,9 @@ Text {
 }
 
 Text {
-    text: {{ card.description | markup }}
+    text: {{ rev.description | escape_newlines | markup }}
     x: 169
-    y: {% if card.image %}579{% else %}207{% endif %}
+    y: {% if rev.image %}579{% else %}207{% endif %}
     w: 581
     h: 750
     line_spacing: 2
@@ -141,12 +141,12 @@ Text {
 }
 
 # Show a table if needed TODO: anchor to description bottom automatically
-{% if card.table %}
+{% if rev.table %}
     Table {
         id: table
-        data: {{ card.table | jsonify }}
+        data: {{ rev.table | jsonify }}
         x: 169
-        y: {{ card.table_y + 207 }}
+        y: {{ rev.table_y + 207 }}
         w: 581
         padding_x: 7
         padding_y: 3
@@ -158,7 +158,7 @@ Text {
 
 # Copyright text
 Text {
-    text: © {{ card.creation_year }}–2016, Brimstone RPG Project
+    text: © {{ rev.creation_year }}–2016, Brimstone RPG Project
     x: 341
     y: 1047
     w: 800
@@ -171,7 +171,7 @@ Text {
 # Version Number
 Text {
     # TODO Replace the deck icon with data
-    text: {} {{ card.id }} : {{ card.version }}
+    text: {} {{ rev.card | rjust(3, "0") }} : {{ rev.version }}
     x: 370
     y: 1012
     w: 263

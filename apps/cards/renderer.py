@@ -7,11 +7,43 @@ import tempfile
 
 from django.conf import settings
 from jinja2 import Environment, FileSystemLoader
+from apps.cards.models import StatType, CardType, CardArt
+from apps.cards.serializers import CardRevisionSerializer
 
 
 # Template Filters
 def jsonify(s):
     return json.dumps(s)
+
+
+def escape_newlines(s):
+    return s.replace('\n', '\\n')
+
+
+def type_name(s):
+    return CardType.objects.get(id=s).name
+
+
+def stat_name(s):
+    return StatType.objects.get(id=s).name
+
+
+def stat_icon(s):
+    return StatType.objects.get(id=s).image.path
+
+
+def background_image(s):
+    t = CardType.objects.get(id=s)
+    return t.background.image.path
+
+
+def art_image(s):
+    art = CardArt.objects.get(id=s)
+    return art.image.path
+
+
+def rjust(s, number, character):
+    return str(s).rjust(number, character)
 
 
 def markup(s):
@@ -33,27 +65,21 @@ def markup(s):
 # Driver
 def generate_image(revision):
     # Use the serializer to get a JSON representation of the card
-    from apps.cards.serializers import CardRevisionSerializer
     s = CardRevisionSerializer(revision)
-    card = s.data.copy()
+    revision_data = s.data.copy()
 
-    # Overwrite values strategically
-    # TODO: These should be template filters
-    card.update(
-        id=str(revision.id).rjust(3, "0"),
-        background=revision.type.background.image.path,
-        image=revision.art.image.path if revision.art else "",
-        subtitle=revision.type.name,
-        description=revision.description.replace('\n', '\\n'),
-    )
-
-    # Set up Jinja
-
-    # Load the template
+    # Set up Jinja and load the template
     env = Environment(loader=FileSystemLoader(
         os.path.join(settings.BASE_DIR, 'apps', 'cards', 'templates')))
     env.filters['jsonify'] = jsonify
     env.filters['markup'] = markup
+    env.filters['rjust'] = rjust
+    env.filters['type_name'] = type_name
+    env.filters['stat_name'] = stat_name
+    env.filters['stat_icon'] = stat_icon
+    env.filters['background_image'] = background_image
+    env.filters['art_image'] = art_image
+    env.filters['escape_newlines'] = escape_newlines
     template = env.get_template('Portrait.tml')
 
     # Render the image using squib
@@ -65,7 +91,7 @@ def generate_image(revision):
         out_filepath = os.path.join(tmpdir, 'template.tml')
         with open(out_filepath, 'w') as outfile:
             # Render the template using jinja
-            outfile.write(template.render(card=card))
+            outfile.write(template.render(rev=revision_data))
 
         # Execute the renderer
         cmd = 'python generate_image.py {} {} {} {}'.format(

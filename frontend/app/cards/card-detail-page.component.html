@@ -9,8 +9,7 @@
                 <h2>{{ card.latest_revision.name }}</h2>
                 <p>{{ card.latest_revision.description }}</p>
             </div>
-            <revision-form *ngIf="editMode" [revision]="blankRevision"></revision-form>
-            <button (click)="previewClicked()">Preview</button>
+            <revision-form *ngIf="editMode" [revision]="blankRevision" (revisionChanged)="refreshPreview()"></revision-form>
             <button (click)="editMode = !editMode">{{ editMode ? "Cancel Editing" : "Suggest an Edit" }}</button>
         </div>
     </div>

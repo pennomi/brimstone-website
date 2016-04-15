@@ -79,11 +79,10 @@ export class CardDetailPageComponent {
         );
     }
 
-    // TODO: Make this happen automatically whenever the revision changes
-    previewClicked() {
+    refreshPreview() {
         this._cardService.previewRevision(this.blankRevision).subscribe(
             data => this.imagePreviewUrl = data._body,
             err => this.error = "Could not preview."
-        )
+        );
     }
 }

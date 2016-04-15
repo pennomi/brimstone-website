@@ -19,7 +19,7 @@ export class CardTableFieldComponent {
 
     valueChanged(r, c, value) {
         this.table[r][c] = value;
-        console.log(JSON.stringify(this.table));
+        this.tableChanged.emit();
     }
 
     addRow() {
@@ -30,5 +30,6 @@ export class CardTableFieldComponent {
         }
         this.table.push(Array(width).fill(""));
         this.tableCopy.push(Array(width).fill(""));
+        this.tableChanged.emit();
     }
 }

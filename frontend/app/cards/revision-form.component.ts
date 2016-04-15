@@ -1,8 +1,9 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {CardService} from '../services/card.service'
 import {CardTypeFieldComponent} from './card-type-field.component'
 import {CardStatFieldComponent} from './card-stat-field.component'
 import {CardTableFieldComponent} from './card-table-field.component'
+
 
 @Component({
     selector: 'revision-form',
@@ -13,6 +14,8 @@ export class RevisionFormComponent {
     constructor(private _cardService: CardService) { }
 
     @Input() revision: [string: any];
+    @Output() revisionChanged: EventEmitter<any> = new EventEmitter();
+
     ngOnInit() {
         if (!this.revision) {
             this.revision = {stats: []};
@@ -30,5 +33,9 @@ export class RevisionFormComponent {
             data => console.log("Saved"),
             err => console.error(err)
         );
+    }
+
+    changeDetected() {
+        this.revisionChanged.emit();
     }
 }

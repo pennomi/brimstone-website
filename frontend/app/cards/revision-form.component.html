@@ -17,7 +17,7 @@
     </li>
     <li>
         <label>Table Data:</label>
-        <card-table-field [table]="revision.table" (tableChanged)="modifyTable($event)"></card-table-field>
+        <card-table-field [table]="revision.table" (tableChanged)="changeDetected()"></card-table-field>
     </li>
 </ul>
 <button (click)="submitClicked()">Submit</button>

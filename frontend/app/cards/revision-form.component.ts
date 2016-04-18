@@ -13,7 +13,7 @@ import {CardTableFieldComponent} from './card-table-field.component'
 export class RevisionFormComponent {
     constructor(private _cardService: CardService) { }
 
-    @Input() revision: [string: any];
+    @Input() revision: any;
     @Output() revisionChanged: EventEmitter<any> = new EventEmitter();
 
     ngOnInit() {
@@ -36,6 +36,6 @@ export class RevisionFormComponent {
     }
 
     changeDetected() {
-        this.revisionChanged.emit();
+        this.revisionChanged.emit(this.revision);
     }
 }

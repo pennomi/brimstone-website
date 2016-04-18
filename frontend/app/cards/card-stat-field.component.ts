@@ -10,12 +10,13 @@ import {CardService} from '../services/card.service'
 export class CardStatFieldComponent {
     constructor(private _cardService: CardService) { }
 
+    private statList: any[] = [];
+
     @Input() stats: any;
     @Output() statsChanged: EventEmitter<any> = new EventEmitter();
 
     ngOnInit() {
         // Fetch the stat names and icons
-        this.statList = [];
         this._cardService.getStatList().subscribe(
             data => this.statList = data,
             err => console.error(err)

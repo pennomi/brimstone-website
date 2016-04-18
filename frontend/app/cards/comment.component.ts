@@ -10,15 +10,17 @@ import {CardService} from '../services/card.service';
     pipes: [FriendlyDatePipe]
 })
 export class CommentComponent {
-    @Input() comment;
+  constructor(private _cardService: CardService) { }
 
-    constructor(private _cardService: CardService) { }
+  @Input() comment;
+  private user: any = {};
+  private error: string = "";
 
-    ngOnInit() {
-        // Fetch the comment's user
-        this.user = {};
-        this._cardService.getUsers().subscribe(
-            data => this.user = _.find(data, ['id', this.comment.user]),
-            err => this.error = "Could not retrieve user."
-        );
-    }
+  ngOnInit() {
+    // Fetch the comment's user
+    this._cardService.getUsers().subscribe(
+      data => this.user = _.find(data, ['id', this.comment.user]),
+      err => this.error = "Could not retrieve user."
+    );
+  }
+}

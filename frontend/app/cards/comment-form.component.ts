@@ -14,7 +14,7 @@ import {CardStatFieldComponent} from './card-stat-field.component'
 export class CommentFormComponent {
     constructor(private _cardService: CardService) { }
 
-    commentText: str;
+    commentText: string;
     @Input() card;
 
     submitClicked() {

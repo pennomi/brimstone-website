@@ -13,6 +13,9 @@ import {RevisionFormComponent} from './revision-form.component'
 export class CardListPageComponent {
     constructor(private _cardService: CardService) { }
 
+    private cards: any[] = [];
+    private cardTypes: any[] = [];
+
     ngOnInit() {
         // Fetch Cards
         this._cardService.getCardList().subscribe(

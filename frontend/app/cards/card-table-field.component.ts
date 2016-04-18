@@ -10,6 +10,8 @@ export class CardTableFieldComponent {
     @Input() table: any;
     @Output() tableChanged: EventEmitter<any> = new EventEmitter();
 
+    tableCopy: string[][] = [];
+
     ngOnInit() {
         if (!this.table) {
             this.table = [];
@@ -19,17 +21,16 @@ export class CardTableFieldComponent {
 
     valueChanged(r, c, value) {
         this.table[r][c] = value;
-        this.tableChanged.emit();
+        this.tableChanged.emit(this.table);
     }
 
     addRow() {
-        if (!this.table[0]) {
-            let width = 1;
-        } else {
-            let width = Math.min(this.table[0].length, 1);
+        var width = 1;
+        if (this.table[0]) {
+            width = Math.min(this.table[0].length, 1);
         }
         this.table.push(Array(width).fill(""));
         this.tableCopy.push(Array(width).fill(""));
-        this.tableChanged.emit();
+        this.tableChanged.emit(this.table);
     }
 }

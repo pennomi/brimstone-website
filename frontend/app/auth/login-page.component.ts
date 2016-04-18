@@ -4,7 +4,7 @@ import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
     selector: 'login-page',
-    templateUrl: 'app/foundation/login-page.component.html',
+    templateUrl: 'app/auth/login-page.component.html',
     directives: []
 })
 export class LoginPageComponent {

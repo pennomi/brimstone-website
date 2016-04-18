@@ -17,8 +17,15 @@ import {FriendlyDatePipe} from '../pipes/friendly-date.pipe';
 export class CardDetailPageComponent {
     constructor(private _cardService: CardService, private _routeParams: RouteParams) { }
 
-    editMode: bool = false
-    viewRevisionMode: bool = false
+    editMode: boolean = false;
+    viewRevisionMode: boolean = false;
+    public card;
+    public blankRevision;
+    public imagePreviewUrl: string = "";
+    private error: string = "";
+    private revisions: any[] = [];
+    private comments: any[] = [];
+    private users: any[] = [];
 
     ngOnInit() {
         // Fetch the card
@@ -37,21 +44,18 @@ export class CardDetailPageComponent {
         );
 
         // Fetch all revisions of this card
-        this.revisions = [];
         this._cardService.getRevisionsForCard(id).subscribe(
             data => this.revisions = data,
             err => this.error = "Could not retrieve card revisions."
         );
 
         // Fetch all comments of this card
-        this.comments = [];
         this._cardService.getCommentsForCard(id).subscribe(
             data => this.comments = data,
             err => this.error = "Could not retrieve card comments."
         );
 
         // Fetch all users
-        this.users = [];
         this._cardService.getUsers().subscribe(
             data => this.users = data,
             err => this.error = "Could not retrieve users."

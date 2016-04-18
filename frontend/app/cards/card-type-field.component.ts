@@ -9,10 +9,11 @@ import {CardService} from '../services/card.service'
 export class CardTypeFieldComponent {
     constructor(private _cardService: CardService) { }
 
-    @Input() revision: [string, any];
+    private type: any = {};
+    private typeList: any[] = [];
+
+    @Input() revision;
     ngOnInit() {
-        this.type = {};
-        this.typeList = [];
         this._cardService.getTypeList().subscribe(
             data => {
                 this.typeList = data;

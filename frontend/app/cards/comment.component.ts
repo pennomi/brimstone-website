@@ -1,6 +1,7 @@
 import {Component, Input} from 'angular2/core';
 import {FriendlyDatePipe} from '../pipes/friendly-date.pipe';
 import {CardService} from '../services/card.service';
+declare var _;
 
 
 @Component({

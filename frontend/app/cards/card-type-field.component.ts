@@ -1,5 +1,6 @@
 import {Component, Input} from 'angular2/core';
 import {CardService} from '../services/card.service'
+declare var _;
 
 
 @Component({

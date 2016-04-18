@@ -5,6 +5,7 @@ import {CommentComponent} from './comment.component';
 import {CommentFormComponent} from './comment-form.component';
 import {CardService} from '../services/card.service';
 import {FriendlyDatePipe} from '../pipes/friendly-date.pipe';
+declare var _;
 
 
 @Component({

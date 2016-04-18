@@ -4,3 +4,20 @@ body {
     font-family: DroidSerif;
     background-color: #BCAAA4;
 }
+
+
+/* Generic Buttons */
+button {
+  color: #ffffff;
+  background: #0091EA;
+  padding: 8px 16px 8px 16px;
+  border: none;
+}
+
+button:hover {
+  background: #00B0FF;
+}
+
+button:focus {
+  outline: none;
+}

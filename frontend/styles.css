@@ -18,6 +18,10 @@ button:hover {
   background: #00B0FF;
 }
 
+button:disabled {
+  background: #9E9E9E;
+}
+
 button:focus {
   outline: none;
 }

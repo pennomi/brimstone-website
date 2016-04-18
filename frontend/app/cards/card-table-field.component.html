@@ -1,10 +1,21 @@
 <table>
-    <tbody>
-        <tr *ngFor="#row of tableCopy; #i=index">
-            <td *ngFor="#column of row; #j=index">
-                <input value="{{ column }}" (keyup)="valueChanged(i, j, $event.srcElement.value)">
-            </td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr *ngFor="#i of getTableWidthValues()">
+      <td *ngFor="#j of getTableHeightValues()">
+        <input ([ngModel])="table[i][j]">
+      </td>
+      <td>
+        <button (click)="removeRow(i)">{{ i }}</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td *ngFor="#column of table[0]; #j=index">
+        <button (click)="removeColumn(j)">{{ j }}</button>
+      </td>
+    </tr>
+  </tfoot>
 </table>
 <button (click)="addRow()">Add Row</button>
+<button (click)="addColumn()">Add Column</button>

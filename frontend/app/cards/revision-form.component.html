@@ -1,19 +1,19 @@
 <ul>
     <li>
         <label>Title:</label>
-        <input [(ngModel)]="revision.name" placeholder="Name">
+        <input [(ngModel)]="revision.name" placeholder="Name" (ngModelChange)="changeDetected()">
     </li>
     <li>
         <label>Type:</label>
-        <card-type-field [revision]="revision"></card-type-field>
+        <card-type-field [revision]="revision" (ngModelChange)="changeDetected()"></card-type-field>
     </li>
     <li>
         <label>Stats:</label>
-        <card-stat-field [stats]="revision.stats" (statsChanged)="modifyStats($event)"></card-stat-field>
+        <card-stat-field [stats]="revision.stats" (ngModelChange)="changeDetected()"></card-stat-field>
     </li>
     <li>
         <label>Description:</label>
-        <textarea [(ngModel)]="revision.description" placeholder="Description"></textarea>
+        <textarea [(ngModel)]="revision.description" placeholder="Description" (ngModelChange)="changeDetected()"></textarea>
     </li>
     <li>
         <label>Table Data:</label>

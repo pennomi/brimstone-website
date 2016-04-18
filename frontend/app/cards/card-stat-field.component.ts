@@ -11,9 +11,8 @@ export class CardStatFieldComponent {
     constructor(private _cardService: CardService) { }
 
     private statList: any[] = [];
-
     @Input() stats: any;
-    @Output() statsChanged: EventEmitter<any> = new EventEmitter();
+    @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
 
     ngOnInit() {
         // Fetch the stat names and icons
@@ -32,9 +31,7 @@ export class CardStatFieldComponent {
 
         // Add a new line
         this.stats.push({id:`${this.statList[0].id}`, value:""});
-
-        // Propagate the event
-        this.statsChanged.emit(this.stats);
+        this.ngModelChange.emit(this.stats);
     }
 
     removeStatClicked(stat) {
@@ -42,5 +39,11 @@ export class CardStatFieldComponent {
         if (index > -1) {
             this.stats.splice(index, 1);
         }
+        this.ngModelChange.emit(this.stats);
+    }
+
+    statChanged() {
+      console.log("what");
+      this.ngModelChange.emit(this.stats);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {CardService} from '../services/card.service'
 declare var _;
 
@@ -14,6 +14,7 @@ export class CardTypeFieldComponent {
     private typeList: any[] = [];
 
     @Input() revision;
+    @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
     ngOnInit() {
         this._cardService.getTypeList().subscribe(
             data => {
@@ -31,5 +32,6 @@ export class CardTypeFieldComponent {
     typeChanged(typeId) {
         this.type = _.find(this.typeList, ['id', +typeId]);
         this.revision.type = this.type.id;
+        this.ngModelChange.emit(this.type.id);
     }
 }

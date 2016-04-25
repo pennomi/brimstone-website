@@ -46,26 +46,30 @@ Image {
 
 {% for stat in rev.stats %}
     {% set stat_top = 207 %}
-    {% set stat_spacing = 30 %}
-    {% set stat_height = 68 %}
+    {% set stat_height = 73 %}
+    {% set stat_icon_size = 38 %}
+    {% set stat_font_offset = 40 %}
 
-    {% set stat_icon_size = 37 %}
-    {% set stat_icon_padding = 4 %}
+    Image {
+        file: ./art_source/stat_box.png
+        x: 23
+        y: {{ stat_top + loop.index0 * stat_height }}
+        w: 206
+        h: 116
+    }
 
-    {% set stat_font_offset = 30 %}
-
-    Rect {
-        color: .13, .13, .13, 1
-        x: 0
-        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) }}
-        w: 150
-        h: {{ stat_height }}
+    Image {
+        file: {{ stat.id | stat_icon }}
+        x: 64
+        y: {{ stat_top + 46 + loop.index0 * stat_height }}
+        w: {{ stat_icon_size }}
+        h: {{ stat_icon_size }}
     }
 
     Text {
         text: {{ stat.value }}
-        x: 75
-        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_font_offset}}
+        x: 126
+        y: {{ stat_top + loop.index0 * stat_height + stat_font_offset }}
         w: 263
         h: {{ stat_height }}
         color: 1.0, 1.0, 1.0, 1
@@ -73,27 +77,10 @@ Image {
         font_size: 22
     }
 
-    Rect {
-        color: .13, .13, .13, 1
-        x: 75
-        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) - stat_icon_size / 2}}
-        w: {{ stat_icon_size }}
-        h: {{ stat_icon_size }}
-        radius: {{ stat_icon_size / 2 }}
-    }
-
-    Image {
-        file: {{ stat.id | stat_icon }}
-        x: {{ 75 + stat_icon_padding }}
-        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_padding - stat_icon_size / 2 }}
-        w: {{ stat_icon_size - stat_icon_padding * 2 }}
-        h: {{ stat_icon_size - stat_icon_padding * 2 }}
-    }
-
     Text {
         text: {{ stat.id | stat_name }}
-        x: 75
-        y: {{ stat_top + loop.index0 * (stat_height + stat_spacing) + stat_icon_size / 2 - stat_icon_padding}}
+        x: 126
+        y: {{ stat_top + loop.index0 * stat_height + stat_font_offset + 31 }}
         w: 263
         h: {{ stat_height }}
         color: 1.0, 1.0, 1.0, 1
@@ -102,17 +89,17 @@ Image {
     }
 {% endfor %}
 
-# Render fancy text
+# Text
 Text {
-    id: title
+    id: name
     text: {{ rev.name }}
     x: 0
-    y: 68
+    y: 108
     w: 825
     h: 50
     align: center
     font_name: DroidSerif Bold
-    font_size: 36
+    font_size: 30
     color: 1.0, 1.0, 1.0, 1
 }
 
@@ -120,20 +107,20 @@ Text {
     id: subtitle
     text: {{ rev.type | type_name }}
     x: 0
-    y: 134
+    y: 162
     w: 825
     h: 30
     align: center
-    font_name: DroidSerif weight=900 Italic
+    font_name: DroidSerif Italic
     font_size: 22
     color: 1.0, 1.0, 1.0, 1
 }
 
 Text {
     text: {{ rev.description | escape_newlines | markup }}
-    x: 169
-    y: {% if rev.image %}579{% else %}207{% endif %}
-    w: 581
+    x: 225
+    y: {% if rev.image %}605{% else %}233{% endif %}
+    w: 509
     h: 750
     line_spacing: 2
     font_name: DroidSerif

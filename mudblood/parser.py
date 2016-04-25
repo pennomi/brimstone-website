@@ -55,5 +55,5 @@ def parse(string: str) -> list:
             commands.append((c, attrs))
         return commands
     except ParseException:
-        print(string)
+        print("Parse Error:\n\n", string)
         return []

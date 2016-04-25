@@ -10,6 +10,13 @@ export class CardTableFieldComponent {
   @Input() table: any;
   @Output() tableChanged: EventEmitter<any> = new EventEmitter();
 
+  ngOnInit() {
+    if (!this.table) {
+      this.table = [];
+      this.tableChanged.emit(this.table);
+    }
+  }
+
   getTableWidthValues() {
     return Array(this.table.length).fill(0).map((x,i)=>i);
   }

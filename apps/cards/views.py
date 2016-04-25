@@ -42,7 +42,6 @@ class CardRevisionViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['POST'])
     def preview(self, request):
-        print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = generate_image(serializer.data)

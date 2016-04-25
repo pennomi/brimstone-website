@@ -1,4 +1,3 @@
-<p>Stats:</p>
 <div *ngFor="#line of stats">
     <select [(ngModel)]="line.id" (ngModelChange)="statChanged()">
         <option *ngFor="#s of statList" value="{{s.id}}">{{s.name}}</option>

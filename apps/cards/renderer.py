@@ -18,6 +18,7 @@ def jsonify(s):
 
 
 def escape_newlines(s):
+    s = s.replace('\r', '')
     return s.replace('\n', '\\n')
 
 
@@ -26,7 +27,7 @@ def type_name(s):
 
 
 def stat_name(s):
-    return StatType.objects.get(id=s).name
+    return StatType.objects.get(id=s).name.upper()
 
 
 def stat_icon(s):
@@ -75,7 +76,6 @@ env.filters['stat_icon'] = stat_icon
 env.filters['background_image'] = background_image
 env.filters['art_image'] = art_image
 env.filters['escape_newlines'] = escape_newlines
-TEMPLATE = env.get_template('Portrait.tml')
 
 
 # Driver
@@ -83,6 +83,10 @@ def generate_image(data):
     """Takes in the output of the revision's serializer, renders the card, then
     returns the binary data of the card.
     """
+    # TODO: Move this into the module level.
+    # Putting it here is nice for development, but it's more performant to
+    # load once and keep in memory.
+    TEMPLATE = env.get_template('Portrait.tml')
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         # Render template to file

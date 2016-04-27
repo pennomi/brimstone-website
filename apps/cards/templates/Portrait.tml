@@ -45,7 +45,7 @@ Image {
 }
 
 {% for stat in rev.stats %}
-    {% set stat_top = 207 %}
+    {% set stat_top = 210 %}
     {% set stat_height = 73 %}
     {% set stat_icon_size = 38 %}
     {% set stat_font_offset = 40 %}
